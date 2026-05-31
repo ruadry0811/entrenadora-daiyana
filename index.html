@@ -2,920 +2,1023 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="theme-color" content="#0a0a0a">
-<title>Entrenadora · Daiyana</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#fdf8f9">
+<title>Daiyana · Fit</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Nunito+Sans:opsz,wght@6..12,400;6..12,500;6..12,600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0a0a;--surface:rgba(255,255,255,0.04);--border:rgba(255,255,255,0.08);--text:rgba(255,255,255,0.92);--muted:rgba(255,255,255,0.38);--dim:rgba(255,255,255,0.16);--accent:#e8ff6b;--accent-dim:rgba(232,255,107,0.12);--red:#ff6b6b;--green:#6bffb8;--violet:#c084fc;--amber:#fbbf24;--safe-top:env(safe-area-inset-top,0px);--safe-bot:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:'Syne',sans-serif}
+:root{
+  --pink:#e8758a;--pink-soft:#f9e8ec;--pink-mid:#f2c4cc;--pink-deep:#c44e65;
+  --lilac:#b89dd4;--lilac-soft:#f2edf9;--lilac-mid:#d8c8ee;
+  --mint:#7dc4a8;--mint-soft:#e8f7f2;--mint-mid:#b8e0d2;
+  --peach:#f0a87a;--peach-soft:#fdf0e8;
+  --cream:#fdf8f9;--white:#ffffff;
+  --text:#2a1520;--text-2:#6b3d50;--text-3:#a07080;
+  --border:#f0dde2;--border-2:#e8c8d2;
+  --safe-t:env(safe-area-inset-top,0px);--safe-b:env(safe-area-inset-bottom,0px);
+}
+html,body{height:100%;overflow:hidden;background:var(--cream);color:var(--text);font-family:'Nunito Sans',sans-serif;font-size:15px}
 body{display:flex;flex-direction:column}
-.header{padding:calc(var(--safe-top) + 16px) 20px 12px;border-bottom:1px solid var(--border);flex-shrink:0;background:var(--bg)}
-.header-top{display:flex;justify-content:space-between;align-items:flex-start}
-.header-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:2px}
-.header-title{font-size:20px;font-weight:700;line-height:1.2}
-.header-sub{font-size:12px;color:var(--muted);margin-top:2px}
-.fase-badge{padding:5px 12px;border-radius:100px;font-size:11px;font-weight:600;border:1px solid;white-space:nowrap}
-.tabs{display:flex;gap:6px;padding:10px 20px;overflow-x:auto;flex-shrink:0;scrollbar-width:none;background:var(--bg);border-bottom:1px solid var(--border)}
+
+/* HEADER */
+.hdr{padding:calc(var(--safe-t)+14px) 18px 12px;background:var(--white);border-bottom:1px solid var(--border);flex-shrink:0}
+.hdr-row{display:flex;justify-content:space-between;align-items:flex-start}
+.hdr-label{font-size:11px;color:var(--text-3);letter-spacing:.06em;margin-bottom:2px}
+.hdr-name{font-family:'Nunito',sans-serif;font-size:21px;font-weight:800;color:var(--text);line-height:1}
+.hdr-name span{color:var(--pink)}
+.hdr-sub{font-size:11px;color:var(--text-3);margin-top:3px}
+.fase-tag{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid}
+
+/* TABS */
+.tabs{display:flex;background:var(--white);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab{padding:7px 14px;border-radius:100px;font-size:12px;font-weight:600;white-space:nowrap;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
-.tab.active{background:var(--accent);color:#0a0a0a;border-color:var(--accent)}
-.content{flex:1;overflow-y:auto;padding:16px 20px calc(var(--safe-bot) + 20px);overscroll-behavior:contain}
-.content::-webkit-scrollbar{display:none}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:16px;margin-bottom:12px}
-.card-label{font-family:'DM Mono',monospace;font-size:10px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px}
-.card-title{font-size:17px;font-weight:700;margin-bottom:4px}
-.metrics-grid{display:grid;gap:8px}
-.metrics-grid.cols-3{grid-template-columns:repeat(3,1fr)}
-.metrics-grid.cols-2{grid-template-columns:repeat(2,1fr)}
-.metric-box{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:10px;text-align:center}
-.metric-box.alert{background:rgba(255,107,107,0.08);border-color:rgba(255,107,107,0.2)}
-.metric-box.good{background:rgba(107,255,184,0.06);border-color:rgba(107,255,184,0.15)}
-.metric-label{font-size:10px;color:var(--muted);margin-bottom:4px}
-.metric-value{font-size:14px;font-weight:700}
-.metric-sub{font-size:10px;color:var(--muted);margin-top:2px}
-.ej-row{display:flex;align-items:flex-start;gap:12px;padding:11px 0;border-bottom:1px solid var(--border)}
-.ej-row:last-child{border-bottom:none}
-.ej-check{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--dim);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all .2s}
-.ej-check.done{background:var(--accent);border-color:var(--accent)}
-.ej-check svg{display:none;width:12px;height:10px}
-.ej-check.done svg{display:block}
-.ej-info{flex:1}
-.ej-name{font-size:14px;font-weight:600}
-.ej-detail{font-size:11px;color:var(--muted);margin-top:2px;font-family:'DM Mono',monospace}
-.ej-done .ej-name{opacity:.35;text-decoration:line-through}
-.progress-wrap{margin:8px 0}
-.progress-track{height:6px;background:rgba(255,255,255,0.08);border-radius:100px;overflow:hidden}
-.progress-fill{height:100%;border-radius:100px;transition:width .6s ease}
-.energy-stars{display:flex;gap:4px}
-.star{flex:1;height:34px;border-radius:8px;border:1px solid var(--border);background:transparent;color:var(--muted);font-size:12px;font-weight:700;cursor:pointer;transition:all .2s;font-family:'Syne',sans-serif}
-.star.on{background:var(--accent-dim);border-color:var(--accent);color:var(--accent)}
-.seg-row{display:flex;justify-content:space-between;align-items:center;padding:8px 10px;border-radius:10px;margin-bottom:4px;border:1px solid}
-.seg-row.neutral{background:rgba(255,255,255,0.02);border-color:var(--border)}
-.seg-row.alert{background:rgba(255,107,107,0.06);border-color:rgba(255,107,107,0.18)}
-.seg-row.good{background:rgba(107,255,184,0.05);border-color:rgba(107,255,184,0.14)}
-.seg-zona{font-size:12px;color:var(--muted)}
-.seg-right{text-align:right}
-.seg-val{font-size:13px;font-weight:700}
-.seg-delta{font-size:11px;font-family:'DM Mono',monospace;margin-left:6px}
-.delta-neg{color:var(--red)}
-.delta-pos{color:var(--green)}
-.week-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:5px}
-.day-cell{border-radius:12px;padding:8px 4px;text-align:center;border:1px solid var(--border);background:rgba(255,255,255,0.02)}
-.day-cell.today{border-color:var(--accent);background:var(--accent-dim)}
-.day-cell.done{background:rgba(107,255,184,0.06);border-color:rgba(107,255,184,0.14)}
-.day-name{font-size:10px;color:var(--muted);margin-bottom:5px}
-.day-icon{font-size:16px;line-height:1}
-.day-dot{width:6px;height:6px;border-radius:50%;background:var(--dim);margin:5px auto 0}
-.hc-btn{width:100%;padding:14px;border-radius:14px;border:1px solid;font-size:14px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .25s}
-.hc-btn.primary{background:var(--accent);color:#0a0a0a;border-color:var(--accent)}
-.hc-btn.primary:active{opacity:.8;transform:scale(.98)}
-.hc-btn.secondary{background:var(--surface);color:var(--text);border-color:var(--border)}
-.hc-btn.secondary:active{opacity:.7}
-.inp{width:100%;background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:12px;padding:11px 14px;font-size:14px;color:var(--text);font-family:'Syne',sans-serif;outline:none;-webkit-appearance:none}
-.inp:focus{border-color:var(--accent)}
-.inp::placeholder{color:var(--muted)}
-.inp-row{display:flex;gap:8px}
-.inp-row .inp{flex:1}
-.slider-wrap{display:flex;align-items:center;gap:10px}
-input[type=range]{flex:1;accent-color:var(--accent);height:4px}
-.slider-val{font-family:'DM Mono',monospace;font-size:13px;color:var(--accent);min-width:32px;text-align:right}
-.phase-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;margin-bottom:6px;border:1px solid var(--border)}
-.phase-row.current{border-color:rgba(232,255,107,0.3);background:var(--accent-dim)}
-.phase-emoji{font-size:20px}
-.phase-info{flex:1}
-.phase-name{font-size:13px;font-weight:700}
-.phase-desc{font-size:11px;color:var(--muted);margin-top:1px}
-.phase-now{font-size:10px;color:var(--accent);font-family:'DM Mono',monospace}
-.banner{border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.5;margin-bottom:10px}
-.banner.amber{background:rgba(251,191,36,0.08);border:1px solid rgba(251,191,36,0.2);color:rgba(251,191,36,0.9)}
-.banner.red{background:rgba(255,107,107,0.08);border:1px solid rgba(255,107,107,0.2);color:rgba(255,107,107,0.9)}
-.banner.violet{background:rgba(192,132,252,0.08);border:1px solid rgba(192,132,252,0.2);color:rgba(192,132,252,0.9)}
-.banner.green{background:rgba(107,255,184,0.06);border:1px solid rgba(107,255,184,0.14);color:rgba(107,255,184,0.9)}
-.divider{height:1px;background:var(--border);margin:12px 0}
-.row-between{display:flex;justify-content:space-between;align-items:center}
-.btn-sm{padding:8px 16px;border-radius:10px;border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:12px;font-weight:700;cursor:pointer;font-family:'Syne',sans-serif;transition:all .2s}
-.btn-sm:active{opacity:.7}
-.tag{display:inline-flex;align-items:center;gap:3px;padding:3px 8px;border-radius:100px;font-size:10px;font-weight:600;border:1px solid}
-.spinner{display:inline-block;width:18px;height:18px;border:2px solid var(--dim);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.empty-state{text-align:center;padding:32px 20px;color:var(--muted)}
-.empty-state .e-icon{font-size:36px;margin-bottom:8px}
-.empty-state p{font-size:13px}
-.empty-state .e-sub{font-size:11px;margin-top:4px;color:var(--dim)}
-canvas{max-width:100%}
-.panel{animation:fadeUp .25s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-select.inp{color:var(--text)}
-select.inp option{background:#1a1a1a}
-.dia-select{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:10px;padding:6px 10px;font-size:12px;color:var(--text);font-family:'Syne',sans-serif;outline:none;cursor:pointer}
-.dia-select:focus{border-color:var(--accent)}
+.tab{flex-shrink:0;padding:11px 14px;font-size:12px;font-weight:700;color:var(--text-3);background:none;border:none;cursor:pointer;font-family:'Nunito Sans',sans-serif;position:relative;transition:color .15s}
+.tab.on{color:var(--pink)}
+.tab.on::after{content:'';position:absolute;bottom:0;left:10px;right:10px;height:2.5px;background:var(--pink);border-radius:2px}
+
+/* SCROLL AREA */
+.scroll{flex:1;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.body{padding:14px 16px calc(var(--safe-b)+24px)}
+
+/* CARDS */
+.card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:14px 16px;margin-bottom:10px}
+.card.pink{background:linear-gradient(145deg,#fff5f7,#ffeef2);border-color:var(--pink-mid)}
+.card.lilac{background:linear-gradient(145deg,#f8f4ff,#f2edf9);border-color:var(--lilac-mid)}
+.card.mint{background:linear-gradient(145deg,#f3fcf8,#e8f7f2);border-color:var(--mint-mid)}
+.card-label{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-3);margin-bottom:6px}
+.card-title{font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:3px}
+.card-desc{font-size:12px;color:var(--text-2);line-height:1.5}
+
+/* PROGRESS */
+.prog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.prog-track{height:7px;background:var(--pink-soft);border-radius:10px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--pink),var(--peach));border-radius:10px;transition:width .5s}
+
+/* BLOQUE */
+.bloque-hdr{display:flex;align-items:center;gap:7px;padding:10px 0 7px;margin-top:2px;border-top:1px dashed var(--border-2)}
+.bloque-hdr:first-child{border-top:none;padding-top:4px}
+.bloque-dot{width:7px;height:7px;border-radius:50%;background:var(--pink);flex-shrink:0}
+.bloque-name{font-size:11px;font-weight:700;color:var(--text-2);letter-spacing:.05em;text-transform:uppercase}
+
+/* EJ CARD */
+.ej{background:var(--white);border:1.5px solid var(--border);border-radius:14px;margin-bottom:7px;overflow:hidden;transition:border-color .2s}
+.ej.done{background:var(--mint-soft);border-color:var(--mint-mid)}
+.ej.open{border-color:var(--pink-mid);box-shadow:0 2px 12px rgba(232,117,138,.12)}
+.ej-top{display:flex;align-items:flex-start;gap:10px;padding:11px 12px;cursor:pointer}
+.ej-cb{width:24px;height:24px;border-radius:50%;border:2px solid var(--pink-mid);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;transition:all .2s}
+.ej.done .ej-cb{background:var(--mint);border-color:var(--mint)}
+.ej-cb svg{display:none}
+.ej.done .ej-cb svg{display:block}
+.ej-body{flex:1;min-width:0}
+.ej-name{font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;color:var(--text);line-height:1.3}
+.ej.done .ej-name{color:var(--mint);text-decoration:line-through;text-decoration-color:var(--mint-mid)}
+.ej-meta{font-size:11px;color:var(--text-3);margin-top:2px;font-variant-numeric:tabular-nums}
+.ej-last{font-size:11px;font-weight:700;color:var(--pink);margin-top:3px}
+.ej-nota{font-size:11px;color:var(--text-2);font-style:italic;margin-top:4px;line-height:1.45;display:none}
+.ej.open .ej-nota{display:block}
+.ej-chevron{font-size:16px;color:var(--text-3);transition:transform .2s;flex-shrink:0;margin-top:3px}
+.ej.open .ej-chevron{transform:rotate(180deg);color:var(--pink)}
+
+/* LOGGER */
+.logger{display:none;padding:0 12px 12px;border-top:1px solid var(--border)}
+.ej.open .logger{display:block}
+.series-chips{display:flex;flex-wrap:wrap;gap:5px;margin:10px 0 8px}
+.s-chip{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;background:var(--mint-soft);border:1px solid var(--mint-mid);font-size:11px;font-weight:700;color:#2d7a60;font-variant-numeric:tabular-nums}
+.s-chip .x{color:var(--mint);cursor:pointer;font-size:14px;line-height:1}
+.log-inputs{display:flex;gap:7px;margin-bottom:7px}
+.log-field{flex:1;display:flex;flex-direction:column;gap:3px}
+.log-lbl{font-size:10px;font-weight:700;color:var(--text-3);text-align:center;text-transform:uppercase;letter-spacing:.06em}
+.log-inp{background:var(--cream);border:1.5px solid var(--border-2);border-radius:10px;padding:10px 4px;font-size:18px;font-weight:800;text-align:center;color:var(--text);font-family:'Nunito',sans-serif;outline:none;width:100%;-webkit-appearance:none}
+.log-inp:focus{border-color:var(--pink)}
+.adj-row{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;margin-bottom:8px}
+.adj{padding:8px 0;border-radius:9px;border:1.5px solid var(--border-2);background:var(--cream);font-size:12px;font-weight:800;color:var(--text-2);cursor:pointer;font-family:'Nunito',sans-serif;transition:background .12s}
+.adj:active{background:var(--pink-soft);border-color:var(--pink-mid)}
+.btn-add{width:100%;padding:11px;border-radius:11px;background:var(--pink);color:#fff;font-size:13px;font-weight:800;border:none;cursor:pointer;font-family:'Nunito',sans-serif;transition:opacity .15s}
+.btn-add:active{opacity:.8}
+.btn-add.done-btn{background:var(--mint)}
+.btn-sec{width:100%;padding:9px;border-radius:10px;background:transparent;color:var(--text-3);font-size:12px;font-weight:700;border:1px solid var(--border-2);cursor:pointer;font-family:'Nunito Sans',sans-serif;margin-top:6px;transition:background .12s}
+.btn-sec:active{background:var(--pink-soft)}
+.log-saved{font-size:11px;color:var(--mint);text-align:center;font-weight:700;display:none;margin-top:5px}
+
+/* CHECKIN */
+.ci-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.ci-field{display:flex;flex-direction:column;gap:5px}
+.ci-label{font-size:11px;font-weight:700;color:var(--text-2)}
+.slider-row{display:flex;align-items:center;gap:8px}
+input[type=range]{flex:1;accent-color:var(--pink);cursor:pointer}
+.sv{font-size:13px;font-weight:800;color:var(--pink);min-width:30px;text-align:right;font-family:'Nunito',sans-serif}
+.e-row{display:flex;gap:4px}
+.e-btn{flex:1;padding:9px 0;border-radius:9px;border:1.5px solid var(--border-2);background:var(--cream);font-size:13px;font-weight:800;color:var(--text-3);cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s}
+.e-btn.on{background:var(--pink-soft);border-color:var(--pink-mid);color:var(--pink-deep)}
+.agua-row{display:flex;gap:4px}
+.a-btn{flex:1;padding:7px 0;border-radius:9px;border:1.5px solid var(--border-2);background:var(--cream);font-size:11px;font-weight:800;color:var(--text-3);cursor:pointer;font-family:'Nunito',sans-serif;transition:all .15s}
+.a-btn.on{background:var(--lilac-soft);border-color:var(--lilac-mid);color:var(--lilac)}
+.inp{width:100%;background:var(--cream);border:1.5px solid var(--border-2);border-radius:11px;padding:10px 12px;font-size:14px;color:var(--text);font-family:'Nunito Sans',sans-serif;outline:none;-webkit-appearance:none}
+.inp:focus{border-color:var(--pink)}
+.inp::placeholder{color:var(--text-3)}
+
+/* SCORE RING */
+.ring-wrap{position:relative;width:58px;height:58px;flex-shrink:0}
+.ring-wrap svg{transform:rotate(-90deg)}
+.ring-num{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'Nunito',sans-serif;font-size:17px;font-weight:800}
+
+/* METRICS */
+.m-grid{display:grid;gap:7px}
+.m-grid.c3{grid-template-columns:repeat(3,1fr)}
+.m-grid.c2{grid-template-columns:repeat(2,1fr)}
+.m-box{background:var(--cream);border:1px solid var(--border);border-radius:12px;padding:9px 8px;text-align:center}
+.m-box.g{background:var(--mint-soft);border-color:var(--mint-mid)}
+.m-box.p{background:var(--pink-soft);border-color:var(--pink-mid)}
+.m-box.l{background:var(--lilac-soft);border-color:var(--lilac-mid)}
+.m-lbl{font-size:10px;color:var(--text-3);font-weight:600;margin-bottom:3px}
+.m-val{font-size:14px;font-weight:800;font-family:'Nunito',sans-serif;color:var(--text)}
+.m-sub{font-size:10px;color:var(--text-3);margin-top:1px}
+
+/* BANNERS */
+.ban{border-radius:12px;padding:10px 13px;font-size:12px;line-height:1.55;margin-bottom:9px;font-weight:500}
+.ban.p{background:var(--pink-soft);border:1px solid var(--pink-mid);color:var(--pink-deep)}
+.ban.m{background:var(--mint-soft);border:1px solid var(--mint-mid);color:#1a6b4a}
+.ban.l{background:var(--lilac-soft);border:1px solid var(--lilac-mid);color:#5a3a8a}
+.ban.o{background:var(--peach-soft);border:1px solid #f5caa8;color:#7a3d10}
+
+/* WEEK */
+.wk-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:12px}
+.wk{border-radius:11px;padding:7px 3px;text-align:center;border:1px solid var(--border);background:var(--white)}
+.wk.today{border-color:var(--pink);background:var(--pink-soft)}
+.wk.done{border-color:var(--mint-mid);background:var(--mint-soft)}
+.wk-d{font-size:10px;font-weight:700;color:var(--text-3);margin-bottom:3px}
+.wk-i{font-size:14px;line-height:1}
+.wk-dot{width:5px;height:5px;border-radius:50%;background:var(--border-2);margin:5px auto 2px}
+
+/* PHASE */
+.ph-item{display:flex;gap:11px;padding:10px 12px;border-radius:13px;margin-bottom:6px;border:1px solid var(--border);background:var(--white)}
+.ph-item.now{border-color:var(--pink-mid);background:var(--pink-soft)}
+.ph-em{font-size:24px;flex-shrink:0}
+.ph-name{font-family:'Nunito',sans-serif;font-size:13px;font-weight:800;color:var(--text)}
+.ph-desc{font-size:11px;color:var(--text-2);margin-top:2px;line-height:1.4}
+.ph-now{font-size:10px;font-weight:800;color:var(--pink);margin-top:3px;letter-spacing:.05em}
+
+/* AJUSTES */
+.dia-sel{background:var(--cream);border:1.5px solid var(--border-2);border-radius:9px;padding:6px 9px;font-size:12px;color:var(--text);font-family:'Nunito Sans',sans-serif;outline:none;cursor:pointer}
+.dia-sel:focus{border-color:var(--pink)}
+.ses-row{display:flex;align-items:center;gap:9px;padding:11px 13px;border-radius:13px;border:1px solid var(--border);background:var(--white);margin-bottom:7px}
+
+/* REST */
+.rest-card{text-align:center;padding:28px 18px;background:linear-gradient(145deg,#fff5f7,#fff0f5);border:1px solid var(--pink-mid);border-radius:20px;margin-bottom:10px}
+
+/* BTN PRIMARY */
+.btn-p{width:100%;padding:13px;border-radius:13px;background:var(--pink);color:#fff;font-size:14px;font-weight:800;border:none;cursor:pointer;font-family:'Nunito',sans-serif;box-shadow:0 4px 16px rgba(232,117,138,.25);transition:all .2s}
+.btn-p:active{opacity:.85;transform:scale(.99)}
+.btn-p.mint{background:var(--mint);box-shadow:0 4px 16px rgba(125,196,168,.25)}
+
+/* PANEL */
+.panel{animation:fu .2s ease both}
+@keyframes fu{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+
+/* SEG */
+.seg-r{display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-radius:10px;margin-bottom:4px;border:1px solid}
+.seg-r.n{background:var(--cream);border-color:var(--border)}
+.seg-r.p{background:var(--pink-soft);border-color:var(--pink-mid)}
+.seg-r.m{background:var(--mint-soft);border-color:var(--mint-mid)}
+.seg-z{font-size:11px;color:var(--text-2)}
+.seg-v{font-size:12px;font-weight:800;font-family:'Nunito',sans-serif;color:var(--text)}
+.seg-d{font-size:10px;font-weight:700;font-family:'Nunito',sans-serif;margin-left:4px}
+.dn{color:var(--pink-deep)}.dm{color:#1a6b4a}
+
+canvas{max-width:100%;width:100%;min-width:200px;display:block}
+
+/* PROG EJ CHIPS */
+.pej{padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid;cursor:pointer;white-space:nowrap;font-family:'Nunito Sans',sans-serif;transition:all .15s}
+.pej.on{background:var(--pink);color:#fff;border-color:var(--pink)}
+.pej.off{background:var(--white);color:var(--text-3);border-color:var(--border-2)}
 </style>
 </head>
 <body>
-<div class="header">
-  <div class="header-top">
+
+<div class="hdr">
+  <div class="hdr-row">
     <div>
-      <div class="header-label">entrenadora · daiyana</div>
-      <div class="header-title" id="plan-nombre">Recomposición 12 semanas</div>
-      <div class="header-sub" id="plan-sub">Cargando...</div>
+      <div class="hdr-label">tu entrenadora personal ✨</div>
+      <div class="hdr-name">Hola, <span>Daiyana</span> 🌸</div>
+      <div class="hdr-sub" id="hdr-sub">Cargando...</div>
     </div>
-    <div id="fase-badge" class="fase-badge" style="display:none"></div>
+    <div id="fase-tag" class="fase-tag" style="display:none"></div>
   </div>
 </div>
+
 <div class="tabs" id="tabs">
-  <button class="tab active" data-tab="hoy">Hoy</button>
-  <button class="tab" data-tab="semana">Semana</button>
-  <button class="tab" data-tab="progresion">Progresión</button>
-  <button class="tab" data-tab="cuerpo">Cuerpo</button>
-  <button class="tab" data-tab="ciclo">Ciclo</button>
-  <button class="tab" data-tab="ajustes">Ajustes</button>
+  <button class="tab on" data-t="hoy">Hoy</button>
+  <button class="tab" data-t="semana">Semana</button>
+  <button class="tab" data-t="prog">Progresión</button>
+  <button class="tab" data-t="cuerpo">Cuerpo</button>
+  <button class="tab" data-t="ciclo">Ciclo</button>
+  <button class="tab" data-t="ajustes">Ajustes</button>
 </div>
-<div class="content" id="content"></div>
+
+<div class="scroll"><div class="body" id="body"></div></div>
+
 <script>
-// ── HEVY DATA (pre-cargado) ────────────────────────────────
-const HEVY_LOGS = {"2026-05-28":{"fecha":"2026-05-28","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Press de Hombros  (Mancuerna)","series":[{"peso":6.0,"reps":20},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Elevacion Frontal (Cable)","series":[{"peso":2.5,"reps":15},{"peso":4.5,"reps":12},{"peso":4.5,"reps":12},{"peso":4.5,"reps":12}]},{"nombre":"Elevación Lateral a un Brazo (Cable)","series":[{"peso":2.5,"reps":8},{"peso":2.5,"reps":8},{"peso":2.5,"reps":8}]},{"nombre":"Aperturas de Pecho Sentado (Cable)","series":[{"peso":2.5,"reps":10},{"peso":2.5,"reps":10},{"peso":2.5,"reps":10}]},{"nombre":"Extensión de tríceps en polea","series":[{"peso":6.8,"reps":15},{"peso":9.0,"reps":15},{"peso":11.5,"reps":12}]},{"nombre":"Flexiones","series":[{"reps":10},{"reps":10},{"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-26":{"fecha":"2026-05-26","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":21.0,"reps":20},{"peso":32.0,"reps":12},{"peso":35.0,"reps":10},{"peso":35.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":10.0,"reps":12},{"peso":12.5,"reps":8},{"peso":12.5,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":12.5,"reps":12},{"peso":12.5,"reps":12},{"peso":12.5,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":26.0,"reps":15},{"peso":26.0,"reps":15},{"peso":26.0,"reps":12},{"peso":26.0,"reps":12}]},{"nombre":"Remo con Mancuerna","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":6.0,"reps":9},{"peso":6.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-25":{"fecha":"2026-05-25","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":12},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":30.0,"reps":15},{"peso":30.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":10}]},{"nombre":"Curl de Pierna Sentado","series":[{"peso":18.0,"reps":15},{"peso":25.0,"reps":10},{"peso":25.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12},{"peso":6.8,"reps":12},{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-08":{"fecha":"2026-05-08","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Press de Piernas","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":13},{"peso":30.0,"reps":10},{"peso":40.0,"reps":8}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":10},{"peso":30.0,"reps":8}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":15},{"peso":41.0,"reps":15},{"peso":41.0,"reps":15}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-07":{"fecha":"2026-05-07","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":12},{"reps":15},{"peso":2.5,"reps":10},{"peso":2.5,"reps":10}]},{"nombre":"Elevacion Frontal (Mancuerna)","series":[{"peso":4.0,"reps":12},{"peso":4.0,"reps":12},{"peso":4.0,"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":12},{"peso":4.0,"reps":12},{"peso":4.0,"reps":12}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":14},{"peso":18.0,"reps":13}]},{"nombre":"Press de Pecho (Máquina)","series":[{"peso":18.0,"reps":15},{"peso":23.0,"reps":15},{"peso":27.0,"reps":12}]},{"nombre":"Extensión de tríceps en polea","series":[{"peso":6.8,"reps":11},{"peso":6.8,"reps":8},{"peso":6.8,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-06":{"fecha":"2026-05-06","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":12},{"peso":25.0,"reps":8},{"peso":30.0,"reps":8}]},{"nombre":"Sentadilla Goblet","series":[{"peso":12.0,"reps":15},{"peso":16.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":18.0,"reps":20},{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":36.0,"reps":10}]},{"nombre":"Zancadas Caminando (Mancuerna)","series":[{"peso":15.0},{"peso":20.0},{"peso":20.0},{"peso":20.0}]},{"nombre":"Abdominales en V","series":[{"reps":12},{"reps":12},{"reps":12}]},{"nombre":"Rueda Abdominal","series":[{"reps":8},{"reps":8},{"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-05":{"fecha":"2026-05-05","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Remo con Mancuerna","series":[{"peso":9.0,"reps":15},{"peso":10.0,"reps":12},{"peso":10.0,"reps":14}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":9.0,"reps":15},{"peso":11.3,"reps":12},{"peso":11.3,"reps":12}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":13.6,"reps":10},{"peso":13.6,"reps":10},{"peso":13.6,"reps":8}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":10},{"peso":25.0,"reps":10},{"peso":25.0,"reps":10}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":4.0,"reps":15},{"peso":4.0,"reps":14},{"peso":4.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-27":{"fecha":"2026-04-27","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Press de Piernas","series":[{"reps":25},{"reps":25},{"peso":30.0,"reps":15},{"peso":40.0,"reps":13},{"peso":50.0,"reps":9}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Elevación de Cadera a Una Pierna","series":[{"reps":10},{"reps":10},{"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-24":{"fecha":"2026-04-24","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":12},{"peso":39.0,"reps":10},{"peso":39.0,"reps":9},{"peso":39.0,"reps":8}]},{"nombre":"Remo Sentado con Cable - Agarre Abierto","series":[{"peso":10.0,"reps":15},{"peso":15.0,"reps":10},{"peso":15.0,"reps":10},{"peso":15.0,"reps":10}]},{"nombre":"Remo Sentado con Cable","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":20.5,"reps":10},{"peso":27.0,"reps":10}]},{"nombre":"Dominada (Asistida)","series":[{"peso":14.0,"reps":10},{"peso":14.0,"reps":8},{"peso":14.0,"reps":8}]},{"nombre":"Curl de Bíceps (Mancuerna)","series":[{"peso":5.0,"reps":10},{"peso":5.0,"reps":10},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":5.0,"reps":7},{"peso":5.0,"reps":7},{"peso":4.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-16":{"fecha":"2026-04-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":15},{"peso":27.0,"reps":15},{"peso":36.0,"reps":12},{"peso":41.0,"reps":12},{"peso":45.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":20.0,"reps":10},{"peso":20.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":12},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":12},{"peso":36.0,"reps":12},{"peso":36.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-15":{"fecha":"2026-04-15","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":14.0,"reps":15},{"peso":9.0,"reps":10},{"peso":9.0,"reps":10}]},{"nombre":"Press de Banca (Mancuerna)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":11}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":5.0,"reps":12},{"peso":5.0,"reps":12},{"peso":5.0,"reps":11}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":12},{"reps":12}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"reps":12},{"peso":2.5,"reps":12},{"peso":5.0,"reps":7}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-09":{"fecha":"2026-04-09","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":11.0,"reps":10},{"peso":11.0,"reps":10},{"peso":11.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":37.0,"reps":8}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":9.0,"reps":12},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Remo Sentado con Cable","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]},{"nombre":"Curl de Bíceps (Máquina)","series":[{"peso":14.0,"reps":11},{"peso":14.0,"reps":10},{"peso":14.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-08":{"fecha":"2026-04-08","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":12},{"peso":40.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":36.0,"reps":10}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":12},{"peso":27.0,"reps":12},{"peso":32.0,"reps":8}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":40.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-01":{"fecha":"2026-04-01","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":14.0,"reps":20},{"peso":23.0,"reps":15},{"peso":32.0,"reps":11},{"peso":32.0,"reps":11},{"peso":36.0,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":14.0,"reps":12},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-31":{"fecha":"2026-03-31","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla con cinturón (máquina)","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":12},{"peso":27.0,"reps":10},{"peso":27.0,"reps":9}]},{"nombre":"Extensión de Espalda (Hiperextensión con peso)","series":[{"reps":12},{"reps":12},{"peso":5.0,"reps":12}]},{"nombre":"Patada trasera (máquina)","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-19":{"fecha":"2026-03-19","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":14.0,"reps":10},{"peso":14.0,"reps":10},{"peso":11.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":37.0,"reps":11},{"peso":37.0,"reps":10},{"peso":37.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":13.5,"reps":9},{"peso":13.5,"reps":8},{"peso":13.5,"reps":7}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":25.0,"reps":10}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":8},{"peso":6.8,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-17":{"fecha":"2026-03-17","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":15},{"peso":15.0,"reps":15},{"peso":20.0,"reps":12},{"peso":22.5,"reps":8}]},{"nombre":"Peso Muerto (Máquina Smith)","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":12.0,"reps":10},{"peso":17.0,"reps":10},{"peso":17.0,"reps":10}]},{"nombre":"Curl de Pierna Sentado","series":[{"peso":18.0,"reps":10},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":10},{"peso":6.8,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-13":{"fecha":"2026-03-13","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":36.0,"reps":10},{"peso":36.0,"reps":11},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":72.0,"reps":12},{"peso":72.0,"reps":15},{"peso":79.0,"reps":15},{"peso":86.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":12},{"peso":10.0,"reps":15}]},{"nombre":"Abducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":36.0,"reps":12},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":10},{"peso":32.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-06":{"fecha":"2026-03-06","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":9.0,"reps":20},{"peso":27.0,"reps":15},{"peso":32.0,"reps":9},{"peso":32.0,"reps":9}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":8},{"peso":30.0,"reps":9},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":12.0,"reps":10},{"peso":12.0,"reps":10},{"peso":12.0,"reps":12}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":15},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":8},{"peso":32.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-02-27":{"fecha":"2026-02-27","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":14.0,"reps":15},{"peso":23.0,"reps":10},{"peso":27.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":14},{"peso":30.0,"reps":9},{"peso":30.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"reps":15},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Abducción de Caderas","series":[{"peso":27.0,"reps":12},{"peso":32.0,"reps":15},{"peso":36.0,"reps":15}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-29":{"fecha":"2026-01-29","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":12},{"peso":14.0,"reps":10},{"peso":14.0,"reps":12}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":37.0,"reps":9}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":35.0,"reps":8},{"peso":35.0,"reps":8},{"peso":35.0,"reps":9}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":13.5,"reps":10},{"peso":13.5,"reps":9},{"peso":13.5,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":10.0,"reps":12},{"peso":12.5,"reps":12},{"peso":15.0,"reps":10}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":10},{"peso":6.8,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-22":{"fecha":"2026-01-22","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla Hack (Máquina)","series":[{"reps":10},{"reps":10},{"reps":12}]},{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":8},{"peso":10.0,"reps":8}]},{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":12},{"peso":23.0,"reps":12},{"peso":27.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":8}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":17},{"peso":10.0,"reps":15}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-16":{"fecha":"2026-01-16","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":15},{"peso":20.0,"reps":10},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":12},{"peso":11.5,"reps":10}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":10},{"peso":27.0,"reps":9},{"peso":27.0,"reps":8}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":11},{"peso":6.8,"reps":11},{"peso":6.8,"reps":11}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-12":{"fecha":"2026-01-12","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":10},{"peso":35.0,"reps":10},{"peso":35.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":35.0,"reps":8},{"peso":35.0,"reps":8},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":13.5,"reps":10},{"peso":13.5,"reps":11},{"peso":13.5,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.3,"reps":10},{"peso":11.3,"reps":12},{"peso":11.3,"reps":12}]},{"nombre":"Curl de Bíceps (Máquina)","series":[{"peso":14.0,"reps":8},{"peso":12.0,"reps":8},{"peso":12.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2025-12-10":{"fecha":"2025-12-10","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":10},{"peso":18.0,"reps":10},{"peso":18.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":15.0,"reps":15},{"peso":17.0,"reps":10},{"peso":17.0,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":15.0,"reps":12},{"peso":15.0,"reps":12},{"peso":15.0,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":10.0,"reps":13},{"peso":10.0,"reps":10},{"peso":10.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2025-12-09":{"fecha":"2025-12-09","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":17},{"peso":20.0,"reps":15},{"peso":25.0,"reps":12},{"peso":25.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":15},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":14.0,"reps":15},{"peso":20.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":12},{"peso":27.0,"reps":8},{"peso":27.0,"reps":8}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-29":{"fecha":"2025-11-29","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":18.0,"reps":15},{"peso":16.3,"reps":13},{"peso":14.0,"reps":10}]},{"nombre":"Press de Banca (Barra)","series":[{"reps":15},{"peso":2.5,"reps":12},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":5.0,"reps":12},{"peso":5.0,"reps":12},{"peso":5.0,"reps":11}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":25.0,"reps":13},{"peso":25.0,"reps":13},{"peso":25.0,"reps":13}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"peso":5.0,"reps":7},{"peso":2.5,"reps":10},{"peso":2.5,"reps":7}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-28":{"fecha":"2025-11-28","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla Hack (Máquina)","series":[{"peso":15.0,"reps":10},{"peso":10.0,"reps":14},{"peso":10.0,"reps":12},{"peso":10.0,"reps":10}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":63.0,"reps":15},{"peso":72.0,"reps":16},{"peso":72.0,"reps":19},{"peso":99.0,"reps":8},{"peso":108.0,"reps":8}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":8},{"peso":10.0,"reps":8},{"peso":10.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":15},{"peso":32.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":8},{"peso":23.0,"reps":9},{"peso":23.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-26":{"fecha":"2025-11-26","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Boxeo","series":[{"duracion":2400}]},{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":10},{"peso":18.0,"reps":9}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":32.0,"reps":10},{"peso":27.0,"reps":13},{"peso":32.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":13.6,"reps":11},{"peso":13.6,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":13},{"peso":11.5,"reps":13}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-24":{"fecha":"2025-11-24","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":15.0,"reps":15},{"peso":20.0,"reps":15},{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":15},{"peso":35.0,"reps":15},{"peso":35.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":15},{"peso":23.0,"reps":15},{"peso":27.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":13},{"peso":6.8,"reps":13},{"peso":6.8,"reps":13}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-16":{"fecha":"2025-11-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":18.0,"reps":15},{"peso":18.0,"reps":15},{"peso":18.0,"reps":15}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":12},{"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":20},{"peso":5.0,"reps":14},{"peso":5.0,"reps":14}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":20.0,"reps":15},{"peso":25.0,"reps":13},{"peso":25.0,"reps":13}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"reps":15},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"HIIT","series":[{"duracion":1200}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-13":{"fecha":"2025-11-13","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"HIIT","series":[{"duracion":2400}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-12":{"fecha":"2025-11-12","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla (Máquina)","series":[{"reps":17},{"peso":10.0,"reps":15},{"peso":15.0,"reps":15},{"peso":20.0,"reps":12},{"peso":25.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":24.0,"reps":20},{"peso":27.0,"reps":12},{"peso":27.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":5.0,"reps":20},{"peso":5.0,"reps":20},{"peso":5.0,"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-11":{"fecha":"2025-11-11","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":12},{"peso":18.0,"reps":10}]},{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":15},{"peso":32.0,"reps":15},{"peso":32.0,"reps":14}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":11.5,"reps":15},{"peso":11.5,"reps":15}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":13},{"peso":11.5,"reps":13}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":9.1,"reps":10},{"peso":9.1,"reps":8},{"peso":9.1,"reps":7}]},{"nombre":"HIIT","series":[{"duracion":1800}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-10":{"fecha":"2025-11-10","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":40.0,"reps":14},{"peso":40.0,"reps":12},{"peso":40.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":35.0,"reps":15},{"peso":35.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":15},{"peso":23.0,"reps":12},{"peso":23.0,"reps":14}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12},{"peso":6.8,"reps":12},{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-07":{"fecha":"2025-11-07","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":50.0,"reps":15},{"peso":50.0,"reps":15},{"peso":50.0,"reps":15}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":24.0,"reps":20},{"peso":27.0,"reps":12},{"peso":27.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"reps":20},{"reps":20},{"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-05":{"fecha":"2025-11-05","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":23.0,"reps":15},{"peso":18.0,"reps":10},{"peso":18.0,"reps":9}]},{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":13},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":11.5,"reps":12},{"peso":11.5,"reps":12}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":12},{"peso":11.5,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":9.1,"reps":10},{"peso":9.1,"reps":9},{"peso":9.1,"reps":9}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-04":{"fecha":"2025-11-04","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":20.0,"reps":20},{"peso":40.0,"reps":15},{"peso":40.0,"reps":15},{"peso":40.0,"reps":15}]},{"nombre":"Peso Muerto (Máquina Smith)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":15},{"peso":20.0,"reps":15},{"peso":20.0,"reps":13}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":7.5,"reps":15},{"peso":7.5,"reps":15},{"peso":12.5,"reps":15}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-01":{"fecha":"2025-11-01","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Press de Banca (Barra)","series":[{"peso":5.0,"reps":7},{"peso":5.0,"reps":12},{"peso":5.0,"reps":12}]},{"nombre":"Fondos (Asistidos)","series":[{"peso":27.0,"reps":20},{"peso":20.0,"reps":14},{"peso":20.0,"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":15},{"peso":4.0,"reps":20},{"peso":4.0,"reps":15}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":10},{"reps":10}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":8.0,"reps":15},{"peso":20.0,"reps":13},{"peso":25.0,"reps":10}]},{"nombre":"HIIT","series":[{"duracion":1200}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-31":{"fecha":"2025-10-31","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":15},{"peso":30.0,"reps":15},{"peso":40.0,"reps":15}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":7.5,"reps":10},{"peso":7.5,"reps":10},{"peso":7.5,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":50.0,"reps":12},{"peso":50.0,"reps":10},{"peso":50.0,"reps":10}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"reps":25},{"peso":5.0,"reps":20},{"peso":5.0,"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-29":{"fecha":"2025-10-29","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":11}]},{"nombre":"Press de Hombros Sentado (Cable)","series":[{"peso":25.0,"reps":12},{"peso":25.0,"reps":12},{"peso":25.0,"reps":12}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":10.0,"reps":13},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":13.0,"reps":12},{"peso":13.0,"reps":11},{"peso":13.0,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":15.0,"reps":8},{"peso":10.0,"reps":12},{"peso":10.0,"reps":9}]},{"nombre":"Dominada (Asistida)","series":[{"peso":22.0,"reps":10},{"peso":22.0,"reps":8},{"peso":25.0,"reps":9}]},{"nombre":"HIIT","series":[{"duracion":1800}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-28":{"fecha":"2025-10-28","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Boxeo","series":[{"duracion":2640}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-27":{"fecha":"2025-10-27","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":13},{"peso":20.0,"reps":12},{"peso":20.0,"reps":13}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":15},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-16":{"fecha":"2025-10-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":13},{"peso":32.0,"reps":12},{"peso":32.0,"reps":11}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":13},{"peso":25.0,"reps":13},{"peso":25.0,"reps":11}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":12.0,"reps":15},{"peso":12.0,"reps":13},{"peso":12.0,"reps":13}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":12.0,"reps":13},{"peso":12.0,"reps":13},{"peso":12.0,"reps":13}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":7.5,"reps":13},{"peso":7.5,"reps":12},{"peso":7.5,"reps":9}]},{"nombre":"Dominada (Asistida)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-14":{"fecha":"2025-10-14","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":30.0,"reps":15},{"peso":30.0,"reps":18}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":16},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":14},{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]},{"nombre":"Abducción de Caderas","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":27.0,"reps":15}]}],"completada":true,"fuente":"hevy-csv"}};
-
-// ── CONSTANTS ──────────────────────────────────────────────
-const DIAS = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
-const DIAS_FULL = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
-
-const FASES = {
-  menstrual: {label:'Menstrual',emoji:'🌙',color:'#ff6b6b',badgeBg:'rgba(255,107,107,0.15)',badgeBorder:'rgba(255,107,107,0.3)',badgeColor:'#ff9a9a',intensidad:'Volumen reducido · Técnica y movilidad',tip:'Tu cuerpo hace reset hormonal. Muévete, no te machaques. Hierro y magnesio hoy.'},
-  folicular: {label:'Folicular',emoji:'🌱',color:'#6bffb8',badgeBg:'rgba(107,255,184,0.12)',badgeBorder:'rgba(107,255,184,0.3)',badgeColor:'#6bffb8',intensidad:'Cargas máximas · El estrógeno te acompaña',tip:'Pico de síntesis proteica. Rompe récords. Mejor momento para aprender movimientos nuevos.'},
-  ovulatoria:{label:'Ovulatoria',emoji:'⚡',color:'#fbbf24',badgeBg:'rgba(251,191,36,0.12)',badgeBorder:'rgba(251,191,36,0.3)',badgeColor:'#fbbf24',intensidad:'Peak de rendimiento · Máxima energía',tip:'VO2max y fuerza en el tope. Calienta bien rodillas — más laxitud ligamentaria hoy.'},
-  lutea:     {label:'Lútea',emoji:'🍃',color:'#c084fc',badgeBg:'rgba(192,132,252,0.12)',badgeBorder:'rgba(192,132,252,0.3)',badgeColor:'#c084fc',intensidad:'Intensidad moderada · Escucha tu cuerpo',tip:'La progesterona sube el RPE. Más carbohidratos complejos. Reduce volumen al final de la fase.'},
-};
-
-// Plan base - días ajustables
+const HEVY = {"2026-05-28":{"fecha":"2026-05-28","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Press de Hombros  (Mancuerna)","series":[{"peso":6.0,"reps":20},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Elevacion Frontal (Cable)","series":[{"peso":2.5,"reps":15},{"peso":4.5,"reps":12},{"peso":4.5,"reps":12},{"peso":4.5,"reps":12}]},{"nombre":"Elevación Lateral a un Brazo (Cable)","series":[{"peso":2.5,"reps":8},{"peso":2.5,"reps":8},{"peso":2.5,"reps":8}]},{"nombre":"Aperturas de Pecho Sentado (Cable)","series":[{"peso":2.5,"reps":10},{"peso":2.5,"reps":10},{"peso":2.5,"reps":10}]},{"nombre":"Extensión de tríceps en polea","series":[{"peso":6.8,"reps":15},{"peso":9.0,"reps":15},{"peso":11.5,"reps":12}]},{"nombre":"Flexiones","series":[{"reps":10},{"reps":10},{"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-26":{"fecha":"2026-05-26","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":21.0,"reps":20},{"peso":32.0,"reps":12},{"peso":35.0,"reps":10},{"peso":35.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":10.0,"reps":12},{"peso":12.5,"reps":8},{"peso":12.5,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":12.5,"reps":12},{"peso":12.5,"reps":12},{"peso":12.5,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":26.0,"reps":15},{"peso":26.0,"reps":15},{"peso":26.0,"reps":12},{"peso":26.0,"reps":12}]},{"nombre":"Remo con Mancuerna","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":6.0,"reps":9},{"peso":6.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-25":{"fecha":"2026-05-25","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":12},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":30.0,"reps":15},{"peso":30.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":10}]},{"nombre":"Curl de Pierna Sentado","series":[{"peso":18.0,"reps":15},{"peso":25.0,"reps":10},{"peso":25.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12},{"peso":6.8,"reps":12},{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-08":{"fecha":"2026-05-08","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Press de Piernas","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":13},{"peso":30.0,"reps":10},{"peso":40.0,"reps":8}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":10},{"peso":30.0,"reps":8}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":15},{"peso":41.0,"reps":15},{"peso":41.0,"reps":15}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-07":{"fecha":"2026-05-07","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":12},{"reps":15},{"peso":2.5,"reps":10},{"peso":2.5,"reps":10}]},{"nombre":"Elevacion Frontal (Mancuerna)","series":[{"peso":4.0,"reps":12},{"peso":4.0,"reps":12},{"peso":4.0,"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":12},{"peso":4.0,"reps":12},{"peso":4.0,"reps":12}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":14},{"peso":18.0,"reps":13}]},{"nombre":"Press de Pecho (Máquina)","series":[{"peso":18.0,"reps":15},{"peso":23.0,"reps":15},{"peso":27.0,"reps":12}]},{"nombre":"Extensión de tríceps en polea","series":[{"peso":6.8,"reps":11},{"peso":6.8,"reps":8},{"peso":6.8,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-06":{"fecha":"2026-05-06","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":12},{"peso":25.0,"reps":8},{"peso":30.0,"reps":8}]},{"nombre":"Sentadilla Goblet","series":[{"peso":12.0,"reps":15},{"peso":16.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":18.0,"reps":20},{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":36.0,"reps":10}]},{"nombre":"Zancadas Caminando (Mancuerna)","series":[{"peso":15.0},{"peso":20.0},{"peso":20.0},{"peso":20.0}]},{"nombre":"Abdominales en V","series":[{"reps":12},{"reps":12},{"reps":12}]},{"nombre":"Rueda Abdominal","series":[{"reps":8},{"reps":8},{"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-05-05":{"fecha":"2026-05-05","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Remo con Mancuerna","series":[{"peso":9.0,"reps":15},{"peso":10.0,"reps":12},{"peso":10.0,"reps":14}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":9.0,"reps":15},{"peso":11.3,"reps":12},{"peso":11.3,"reps":12}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":13.6,"reps":10},{"peso":13.6,"reps":10},{"peso":13.6,"reps":8}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":10},{"peso":25.0,"reps":10},{"peso":25.0,"reps":10}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":4.0,"reps":15},{"peso":4.0,"reps":14},{"peso":4.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-27":{"fecha":"2026-04-27","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Press de Piernas","series":[{"reps":25},{"reps":25},{"peso":30.0,"reps":15},{"peso":40.0,"reps":13},{"peso":50.0,"reps":9}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Elevación de Cadera a Una Pierna","series":[{"reps":10},{"reps":10},{"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-24":{"fecha":"2026-04-24","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":12},{"peso":39.0,"reps":10},{"peso":39.0,"reps":9},{"peso":39.0,"reps":8}]},{"nombre":"Remo Sentado con Cable - Agarre Abierto","series":[{"peso":10.0,"reps":15},{"peso":15.0,"reps":10},{"peso":15.0,"reps":10},{"peso":15.0,"reps":10}]},{"nombre":"Remo Sentado con Cable","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":20.5,"reps":10},{"peso":27.0,"reps":10}]},{"nombre":"Dominada (Asistida)","series":[{"peso":14.0,"reps":10},{"peso":14.0,"reps":8},{"peso":14.0,"reps":8}]},{"nombre":"Curl de Bíceps (Mancuerna)","series":[{"peso":5.0,"reps":10},{"peso":5.0,"reps":10},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"Curl Martillo (Mancuerna)","series":[{"peso":5.0,"reps":7},{"peso":5.0,"reps":7},{"peso":4.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-16":{"fecha":"2026-04-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":15},{"peso":27.0,"reps":15},{"peso":36.0,"reps":12},{"peso":41.0,"reps":12},{"peso":45.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":20.0,"reps":10},{"peso":20.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":12},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":12},{"peso":36.0,"reps":12},{"peso":36.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-15":{"fecha":"2026-04-15","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":14.0,"reps":15},{"peso":9.0,"reps":10},{"peso":9.0,"reps":10}]},{"nombre":"Press de Banca (Mancuerna)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":11}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":5.0,"reps":12},{"peso":5.0,"reps":12},{"peso":5.0,"reps":11}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":12},{"reps":12}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"reps":12},{"peso":2.5,"reps":12},{"peso":5.0,"reps":7}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-09":{"fecha":"2026-04-09","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":11.0,"reps":10},{"peso":11.0,"reps":10},{"peso":11.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":37.0,"reps":8}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":9.0,"reps":12},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Remo Sentado con Cable","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]},{"nombre":"Curl de Bíceps (Máquina)","series":[{"peso":14.0,"reps":11},{"peso":14.0,"reps":10},{"peso":14.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-08":{"fecha":"2026-04-08","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":40.0,"reps":10},{"peso":40.0,"reps":10},{"peso":40.0,"reps":12},{"peso":40.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":36.0,"reps":10}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":12},{"peso":27.0,"reps":12},{"peso":32.0,"reps":8}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":40.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-04-01":{"fecha":"2026-04-01","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":14.0,"reps":20},{"peso":23.0,"reps":15},{"peso":32.0,"reps":11},{"peso":32.0,"reps":11},{"peso":36.0,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":14.0,"reps":12},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-31":{"fecha":"2026-03-31","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla con cinturón (máquina)","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Extensión de Pierna","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":12},{"peso":27.0,"reps":10},{"peso":27.0,"reps":9}]},{"nombre":"Extensión de Espalda (Hiperextensión con peso)","series":[{"reps":12},{"reps":12},{"peso":5.0,"reps":12}]},{"nombre":"Patada trasera (máquina)","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":18.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-19":{"fecha":"2026-03-19","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":14.0,"reps":10},{"peso":14.0,"reps":10},{"peso":11.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":37.0,"reps":11},{"peso":37.0,"reps":10},{"peso":37.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":13.5,"reps":9},{"peso":13.5,"reps":8},{"peso":13.5,"reps":7}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":12},{"peso":25.0,"reps":10}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":8},{"peso":6.8,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-17":{"fecha":"2026-03-17","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":15},{"peso":15.0,"reps":15},{"peso":20.0,"reps":12},{"peso":22.5,"reps":8}]},{"nombre":"Peso Muerto (Máquina Smith)","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":12.0,"reps":10},{"peso":17.0,"reps":10},{"peso":17.0,"reps":10}]},{"nombre":"Curl de Pierna Sentado","series":[{"peso":18.0,"reps":10},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":10},{"peso":6.8,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-13":{"fecha":"2026-03-13","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":36.0,"reps":10},{"peso":36.0,"reps":11},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":72.0,"reps":12},{"peso":72.0,"reps":15},{"peso":79.0,"reps":15},{"peso":86.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":12},{"peso":10.0,"reps":15}]},{"nombre":"Abducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":36.0,"reps":12},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":10},{"peso":32.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-03-06":{"fecha":"2026-03-06","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":9.0,"reps":20},{"peso":27.0,"reps":15},{"peso":32.0,"reps":9},{"peso":32.0,"reps":9}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":8},{"peso":30.0,"reps":9},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":12.0,"reps":10},{"peso":12.0,"reps":10},{"peso":12.0,"reps":12}]},{"nombre":"Abducción de Caderas","series":[{"peso":36.0,"reps":15},{"peso":41.0,"reps":10},{"peso":41.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":8},{"peso":32.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2026-02-27":{"fecha":"2026-02-27","sesionNombre":"Entrenamiento nocturno 🏋️","ejercicios":[{"nombre":"Extensión de Pierna","series":[{"peso":14.0,"reps":15},{"peso":23.0,"reps":10},{"peso":27.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":14},{"peso":30.0,"reps":9},{"peso":30.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"reps":15},{"peso":9.0,"reps":12},{"peso":9.0,"reps":12}]},{"nombre":"Abducción de Caderas","series":[{"peso":27.0,"reps":12},{"peso":32.0,"reps":15},{"peso":36.0,"reps":15}]},{"nombre":"Aducción de Caderas","series":[{"peso":32.0,"reps":12},{"peso":32.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-29":{"fecha":"2026-01-29","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":12},{"peso":14.0,"reps":10},{"peso":14.0,"reps":12}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":37.0,"reps":9}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":35.0,"reps":8},{"peso":35.0,"reps":8},{"peso":35.0,"reps":9}]},{"nombre":"Jalón de dorsales con brazos rectos (polea)","series":[{"peso":13.5,"reps":10},{"peso":13.5,"reps":9},{"peso":13.5,"reps":8}]},{"nombre":"Jalón de Remo a Un Brazo","series":[{"peso":10.0,"reps":12},{"peso":12.5,"reps":12},{"peso":15.0,"reps":10}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":6.8,"reps":10},{"peso":6.8,"reps":10},{"peso":6.8,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-22":{"fecha":"2026-01-22","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla Hack (Máquina)","series":[{"reps":10},{"reps":10},{"reps":12}]},{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":10},{"peso":20.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":8},{"peso":10.0,"reps":8}]},{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":12},{"peso":23.0,"reps":12},{"peso":27.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":12},{"peso":32.0,"reps":8}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":17},{"peso":10.0,"reps":15}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-16":{"fecha":"2026-01-16","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Elevación de cadera (Máquina Smith)","series":[{"peso":10.0,"reps":15},{"peso":20.0,"reps":10},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":12},{"peso":11.5,"reps":10}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":10},{"peso":27.0,"reps":9},{"peso":27.0,"reps":8}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":11},{"peso":6.8,"reps":11},{"peso":6.8,"reps":11}]}],"completada":true,"fuente":"hevy-csv"},"2026-01-12":{"fecha":"2026-01-12","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":12},{"peso":18.0,"reps":10},{"peso":18.0,"reps":10}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":10},{"peso":35.0,"reps":10},{"peso":35.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":35.0,"reps":8},{"peso":35.0,"reps":8},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":13.5,"reps":10},{"peso":13.5,"reps":11},{"peso":13.5,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.3,"reps":10},{"peso":11.3,"reps":12},{"peso":11.3,"reps":12}]},{"nombre":"Curl de Bíceps (Máquina)","series":[{"peso":14.0,"reps":8},{"peso":12.0,"reps":8},{"peso":12.0,"reps":8}]}],"completada":true,"fuente":"hevy-csv"},"2025-12-10":{"fecha":"2025-12-10","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":10},{"peso":18.0,"reps":10},{"peso":18.0,"reps":8}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":15.0,"reps":15},{"peso":17.0,"reps":10},{"peso":17.0,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":15.0,"reps":12},{"peso":15.0,"reps":12},{"peso":15.0,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":10.0,"reps":13},{"peso":10.0,"reps":10},{"peso":10.0,"reps":10}]}],"completada":true,"fuente":"hevy-csv"},"2025-12-09":{"fecha":"2025-12-09","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":17},{"peso":20.0,"reps":15},{"peso":25.0,"reps":12},{"peso":25.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":15},{"peso":40.0,"reps":10},{"peso":40.0,"reps":10}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":14.0,"reps":15},{"peso":20.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":27.0,"reps":12},{"peso":27.0,"reps":8},{"peso":27.0,"reps":8}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-29":{"fecha":"2025-11-29","sesionNombre":"Tren superior 2","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":18.0,"reps":15},{"peso":16.3,"reps":13},{"peso":14.0,"reps":10}]},{"nombre":"Press de Banca (Barra)","series":[{"reps":15},{"peso":2.5,"reps":12},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":5.0,"reps":12},{"peso":5.0,"reps":12},{"peso":5.0,"reps":11}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":25.0,"reps":13},{"peso":25.0,"reps":13},{"peso":25.0,"reps":13}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"peso":5.0,"reps":7},{"peso":2.5,"reps":10},{"peso":2.5,"reps":7}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-28":{"fecha":"2025-11-28","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla Hack (Máquina)","series":[{"peso":15.0,"reps":10},{"peso":10.0,"reps":14},{"peso":10.0,"reps":12},{"peso":10.0,"reps":10}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":63.0,"reps":15},{"peso":72.0,"reps":16},{"peso":72.0,"reps":19},{"peso":99.0,"reps":8},{"peso":108.0,"reps":8}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":8},{"peso":10.0,"reps":8},{"peso":10.0,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":27.0,"reps":15},{"peso":32.0,"reps":15},{"peso":32.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Extensión de Pierna","series":[{"peso":23.0,"reps":8},{"peso":23.0,"reps":9},{"peso":23.0,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-26":{"fecha":"2025-11-26","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Boxeo","series":[{"duracion":2400}]},{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":10},{"peso":18.0,"reps":9}]},{"nombre":"Jalón al Pecho (Máquina)","series":[{"peso":32.0,"reps":10},{"peso":27.0,"reps":13},{"peso":32.0,"reps":10}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":30.0,"reps":10},{"peso":30.0,"reps":10}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":13.6,"reps":11},{"peso":13.6,"reps":10}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":13},{"peso":11.5,"reps":13}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-24":{"fecha":"2025-11-24","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":15.0,"reps":15},{"peso":20.0,"reps":15},{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":35.0,"reps":15},{"peso":35.0,"reps":15},{"peso":35.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":15},{"peso":23.0,"reps":15},{"peso":27.0,"reps":10}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":13},{"peso":6.8,"reps":13},{"peso":6.8,"reps":13}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-16":{"fecha":"2025-11-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Fondos (Asistidos)","series":[{"peso":18.0,"reps":15},{"peso":18.0,"reps":15},{"peso":18.0,"reps":15}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":12},{"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":20},{"peso":5.0,"reps":14},{"peso":5.0,"reps":14}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":20.0,"reps":15},{"peso":25.0,"reps":13},{"peso":25.0,"reps":13}]},{"nombre":"Press de Pecho Iso-Lateral (Máquina)","series":[{"reps":15},{"peso":5.0,"reps":7},{"peso":5.0,"reps":7}]},{"nombre":"HIIT","series":[{"duracion":1200}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-13":{"fecha":"2025-11-13","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"HIIT","series":[{"duracion":2400}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-12":{"fecha":"2025-11-12","sesionNombre":"Tren inferior 2","ejercicios":[{"nombre":"Sentadilla (Máquina)","series":[{"reps":17},{"peso":10.0,"reps":15},{"peso":15.0,"reps":15},{"peso":20.0,"reps":12},{"peso":25.0,"reps":10}]},{"nombre":"Press de Piernas","series":[{"peso":30.0,"reps":10},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":24.0,"reps":20},{"peso":27.0,"reps":12},{"peso":27.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"peso":5.0,"reps":20},{"peso":5.0,"reps":20},{"peso":5.0,"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-11":{"fecha":"2025-11-11","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":18.0,"reps":14},{"peso":18.0,"reps":12},{"peso":18.0,"reps":10}]},{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":15},{"peso":32.0,"reps":15},{"peso":32.0,"reps":14}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":11.5,"reps":15},{"peso":11.5,"reps":15}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":13},{"peso":11.5,"reps":13}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":9.1,"reps":10},{"peso":9.1,"reps":8},{"peso":9.1,"reps":7}]},{"nombre":"HIIT","series":[{"duracion":1800}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-10":{"fecha":"2025-11-10","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":40.0,"reps":14},{"peso":40.0,"reps":12},{"peso":40.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":35.0,"reps":15},{"peso":35.0,"reps":15}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":23.0,"reps":15},{"peso":23.0,"reps":12},{"peso":23.0,"reps":14}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":6.8,"reps":12},{"peso":6.8,"reps":12},{"peso":6.8,"reps":12}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-07":{"fecha":"2025-11-07","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Press de Piernas Sentado","series":[{"peso":50.0,"reps":15},{"peso":50.0,"reps":15},{"peso":50.0,"reps":15}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":10.0,"reps":10},{"peso":10.0,"reps":10},{"peso":10.0,"reps":8}]},{"nombre":"Aducción de Caderas","series":[{"peso":24.0,"reps":20},{"peso":27.0,"reps":12},{"peso":27.0,"reps":12}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"reps":20},{"reps":20},{"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-05":{"fecha":"2025-11-05","sesionNombre":"Tren superior 1","ejercicios":[{"nombre":"Dominada (Asistida)","series":[{"peso":23.0,"reps":15},{"peso":18.0,"reps":10},{"peso":18.0,"reps":9}]},{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":13},{"peso":32.0,"reps":12},{"peso":32.0,"reps":12}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":15}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":11.5,"reps":15},{"peso":11.5,"reps":12},{"peso":11.5,"reps":12}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":11.5,"reps":12},{"peso":11.5,"reps":12},{"peso":11.5,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":9.1,"reps":10},{"peso":9.1,"reps":9},{"peso":9.1,"reps":9}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-04":{"fecha":"2025-11-04","sesionNombre":"Tren inferior 1","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":20.0,"reps":20},{"peso":40.0,"reps":15},{"peso":40.0,"reps":15},{"peso":40.0,"reps":15}]},{"nombre":"Peso Muerto (Máquina Smith)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":12},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":15},{"peso":20.0,"reps":15},{"peso":20.0,"reps":13}]},{"nombre":"Patada de Glúteo con Cable","series":[{"peso":7.5,"reps":15},{"peso":7.5,"reps":15},{"peso":12.5,"reps":15}]}],"completada":true,"fuente":"hevy-csv"},"2025-11-01":{"fecha":"2025-11-01","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Press de Banca (Barra)","series":[{"peso":5.0,"reps":7},{"peso":5.0,"reps":12},{"peso":5.0,"reps":12}]},{"nombre":"Fondos (Asistidos)","series":[{"peso":27.0,"reps":20},{"peso":20.0,"reps":14},{"peso":20.0,"reps":12}]},{"nombre":"Elevacion Laterales (Mancuerna)","series":[{"peso":4.0,"reps":15},{"peso":4.0,"reps":20},{"peso":4.0,"reps":15}]},{"nombre":"Press de Hombros Sentado (Máquina)","series":[{"reps":15},{"reps":10},{"reps":10}]},{"nombre":"Aperturas (Máquina)","series":[{"peso":8.0,"reps":15},{"peso":20.0,"reps":13},{"peso":25.0,"reps":10}]},{"nombre":"HIIT","series":[{"duracion":1200}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-31":{"fecha":"2025-10-31","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Sentadilla (Máquina Smith)","series":[{"peso":10.0,"reps":12},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Press de Piernas","series":[{"peso":20.0,"reps":15},{"peso":30.0,"reps":15},{"peso":40.0,"reps":15}]},{"nombre":"Zancada Invertida (Barra)","series":[{"peso":7.5,"reps":10},{"peso":7.5,"reps":10},{"peso":7.5,"reps":10}]},{"nombre":"Aducción de Caderas","series":[{"peso":50.0,"reps":12},{"peso":50.0,"reps":10},{"peso":50.0,"reps":10}]},{"nombre":"Extension de Pantorrilla (Máquina)","series":[{"reps":25},{"peso":5.0,"reps":20},{"peso":5.0,"reps":20}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-29":{"fecha":"2025-10-29","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":35.0,"reps":12},{"peso":35.0,"reps":12},{"peso":35.0,"reps":11}]},{"nombre":"Press de Hombros Sentado (Cable)","series":[{"peso":25.0,"reps":12},{"peso":25.0,"reps":12},{"peso":25.0,"reps":12}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":10.0,"reps":13},{"peso":10.0,"reps":12},{"peso":10.0,"reps":12}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":13.0,"reps":12},{"peso":13.0,"reps":11},{"peso":13.0,"reps":12}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":15.0,"reps":8},{"peso":10.0,"reps":12},{"peso":10.0,"reps":9}]},{"nombre":"Dominada (Asistida)","series":[{"peso":22.0,"reps":10},{"peso":22.0,"reps":8},{"peso":25.0,"reps":9}]},{"nombre":"HIIT","series":[{"duracion":1800}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-28":{"fecha":"2025-10-28","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Boxeo","series":[{"duracion":2640}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-27":{"fecha":"2025-10-27","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":13},{"peso":20.0,"reps":12},{"peso":20.0,"reps":13}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":12},{"peso":30.0,"reps":15},{"peso":30.0,"reps":12}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":15},{"peso":10.0,"reps":15},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-16":{"fecha":"2025-10-16","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Jalón al Pecho (Cable)","series":[{"peso":32.0,"reps":13},{"peso":32.0,"reps":12},{"peso":32.0,"reps":11}]},{"nombre":"Remo Inclinado (Barra)","series":[{"peso":25.0,"reps":13},{"peso":25.0,"reps":13},{"peso":25.0,"reps":11}]},{"nombre":"Straight Arm Lat Pulldown (Cable)","series":[{"peso":12.0,"reps":15},{"peso":12.0,"reps":13},{"peso":12.0,"reps":13}]},{"nombre":"Jalón al Pecho a Un Brazo","series":[{"peso":12.0,"reps":13},{"peso":12.0,"reps":13},{"peso":12.0,"reps":13}]},{"nombre":"Curl de Bíceps (Cable)","series":[{"peso":7.5,"reps":13},{"peso":7.5,"reps":12},{"peso":7.5,"reps":9}]},{"nombre":"Dominada (Asistida)","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":25.0,"reps":14}]}],"completada":true,"fuente":"hevy-csv"},"2025-10-14":{"fecha":"2025-10-14","sesionNombre":"Entrenamiento por la tarde 💪","ejercicios":[{"nombre":"Hip Thrust (Smith Machine)","series":[{"peso":10.0,"reps":20},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12},{"peso":20.0,"reps":12}]},{"nombre":"Peso Muerto Rumano (Barra)","series":[{"peso":30.0,"reps":15},{"peso":30.0,"reps":15},{"peso":30.0,"reps":18}]},{"nombre":"Sentadilla Búlgara","series":[{"peso":10.0,"reps":16},{"peso":10.0,"reps":15}]},{"nombre":"Curl de Piernas Acostado (Máquina)","series":[{"peso":20.0,"reps":14},{"peso":20.0,"reps":14},{"peso":20.0,"reps":14}]},{"nombre":"Abducción de Caderas","series":[{"peso":25.0,"reps":15},{"peso":25.0,"reps":15},{"peso":27.0,"reps":15}]}],"completada":true,"fuente":"hevy-csv"}};
 const PLAN_DEFAULT = {
-  nombre:'Recomposición 12 semanas', semanas:12,
+  nombre:'Plan Transformación v3 · 12 semanas', semanas:12,
   fechaInicio: new Date().toISOString().split('T')[0],
   sesiones:[
-    {id:0, nombre:'Tren Inferior · Fuerza', dia:1, duracion:60, fasesOptimas:['folicular','ovulatoria'], descripcion:'Cadena posterior y glúteos. Pesos altos.',
-     ejercicios:[
-       {n:'Elevación de cadera (Máquina Smith)',s:4,r:'8-12',d:90,nota:'Tu ejercicio base — máx 30kg actualmente'},
-       {n:'Peso Muerto Rumano (Barra)',s:3,r:'10-12',d:90,nota:'Actualmente en 30-40kg'},
-       {n:'Sentadilla Búlgara',s:3,r:'10-12',d:90,nota:'Actualmente en 10-20kg'},
-       {n:'Curl de Pierna Sentado',s:3,r:'12-15',d:60,nota:''},
-       {n:'Patada de Glúteo con Cable',s:3,r:'12-15',d:45,nota:''},
+
+    // LUNES — Tren inferior fuerza
+    {id:0, nombre:'🍑 Tren Inferior · Glúteo + Femoral', dia:1, duracion:75, tipo:'fuerza',
+     fasesOptimas:['folicular','ovulatoria'], descripcion:'Cadena posterior y glúteos · Core antirotación · Calistenia base',
+     bloques:[
+       {nombre:'FUERZA · ~45 min', ejercicios:[
+         {n:'Hip thrust (barra o mancuerna)',s:3,r:'10/8/6 ↑',d:90,nota:'Pausa 1s arriba. Sube peso cada serie. Actualmente 20-30kg.'},
+         {n:'Sentadilla Búlgara',s:3,r:'10 c/pierna',d:90,nota:'Rodilla trasera no toca suelo. Actualmente 10-20kg.'},
+         {n:'Peso Muerto Rumano (Barra)',s:3,r:'10/8/6 ↑',d:90,nota:'Espalda neutral siempre. Actualmente 30-40kg.'},
+         {n:'Patada en polea 45°',s:3,r:'15',d:45,nota:'Core activo. Pausa arriba. Movimiento controlado.'},
+         {n:'Curl de Pierna Sentado',s:3,r:'6 pesadas → fallo',d:60,nota:'6 reps máximas → baja peso inmediatamente al fallo.'},
+       ]},
+       {nombre:'CORE antirotación · ~10 min', ejercicios:[
+         {n:'Plancha frontal',s:3,r:'30s → 45s',d:30,nota:'Cuerpo rígido. Espalda baja no se hunde.'},
+         {n:'Plancha lateral',s:3,r:'20s c/lado',d:30,nota:'Cadera arriba. Cuerpo en línea recta.'},
+         {n:'Dead bug',s:3,r:'10 reps',d:30,nota:'Espalda pegada al suelo. Brazo/pierna opuestos lento.'},
+       ]},
+       {nombre:'CALISTENIA base · ~10 min', ejercicios:[
+         {n:'Scapular pulls en barra',s:3,r:'10',d:45,nota:'Solo mueve escápulas — NO dobles codos. Base de la dominada.'},
+         {n:'L-sit tucado en suelo',s:5,r:'5-10s',d:30,nota:'Manos al lado caderas. Eleva rodillas. Progresa cada semana.'},
+         {n:'Hollow body hold',s:3,r:'20-30s',d:30,nota:'Espalda baja pegada al suelo. Fundamento de calistenia.'},
+       ]},
      ]},
-    {id:1, nombre:'Tren Superior · Tirón', dia:2, duracion:60, fasesOptimas:['folicular','ovulatoria'], descripcion:'Espalda y bíceps. Foco en dorsales.',
-     ejercicios:[
-       {n:'Jalón al Pecho (Máquina)',s:4,r:'8-12',d:90,nota:'Actualmente en 35-37kg'},
-       {n:'Jalón de dorsales con brazos rectos (polea)',s:3,r:'10-12',d:75,nota:''},
-       {n:'Remo Inclinado (Barra)',s:4,r:'10-12',d:90,nota:'Actualmente en 26-35kg'},
-       {n:'Remo con Mancuerna',s:3,r:'10-12',d:75,nota:''},
-       {n:'Curl Martillo (Mancuerna)',s:3,r:'10-12',d:60,nota:''},
+
+    // MARTES — Tren superior + HIIT 20 min
+    {id:1, nombre:'💪 Tren Superior Tirón + HIIT', dia:2, duracion:70, tipo:'fuerza+cardio',
+     fasesOptimas:['folicular','ovulatoria'], descripcion:'Espalda y bíceps · Fuerza PRIMERO · HIIT 20 min al final',
+     bloques:[
+       {nombre:'FUERZA Espalda + Bíceps · ~45 min', ejercicios:[
+         {n:'Jalón polea abierto (agarre ancho)',s:3,r:'10',d:90,nota:'Baja escápulas primero, LUEGO jala. Codos atrás y abajo.'},
+         {n:'Jalón remo unilateral',s:3,r:'10 c/lado',d:75,nota:'Rota el torso ligeramente. Codo bien atrás. Siente el dorsal.'},
+         {n:'Pull over en polea',s:3,r:'10',d:75,nota:'Brazos casi rectos. Siente el estiramiento arriba.'},
+         {n:'Remo Inclinado (Barra)',s:3,r:'10/8/6 ↑',d:90,nota:'Agarre supino. Cuerpo rígido. Actualmente 26-35kg.'},
+         {n:'Remo con Mancuerna',s:3,r:'10 c/brazo',d:75,nota:'Codo junto al cuerpo. Actualmente 10-12kg.'},
+         {n:'Curl Martillo (Mancuerna)',s:3,r:'10',d:60,nota:'Agarre neutro. Codo fijo. Sube y baja 3 segundos.'},
+       ]},
+       {nombre:'HIIT 20 min · al final', ejercicios:[
+         {n:'HIIT Tabata: 20s trabajo / 10s descanso',s:8,r:'4 min por bloque',d:10,nota:'Elige: cuerda de saltar, mountain climbers o burpees. Máxima intensidad en cada intervalo.'},
+         {n:'Intervalo activo',s:2,r:'4 min trabajo / 1 min descanso',d:60,nota:'Escaladora o bicicleta a máxima resistencia tolerable.'},
+         {n:'Vuelta a la calma',s:1,r:'3 min suave',d:0,nota:'Baja la frecuencia cardíaca antes de estirar.'},
+       ]},
      ]},
-    {id:2, nombre:'Piernas · Volumen', dia:3, duracion:60, fasesOptimas:['folicular','ovulatoria','lutea'], descripcion:'Más volumen y tiempo bajo tensión.',
-     ejercicios:[
-       {n:'Press de Piernas',s:4,r:'10-15',d:90,nota:'Actualmente hasta 50kg'},
-       {n:'Extensión de Pierna',s:4,r:'12-15',d:60,nota:'Actualmente hasta 45kg'},
-       {n:'Abducción de Caderas',s:3,r:'15-20',d:45,nota:'Actualmente en 50kg'},
-       {n:'Curl de Piernas Acostado (Máquina)',s:3,r:'12-15',d:60,nota:''},
-       {n:'Elevación de gemelos de pie',s:3,r:'15-20',d:45,nota:''},
+
+    // MIÉRCOLES — DESCANSO
+    // (no se incluye como sesión)
+
+    // JUEVES — Tren inferior fuerza (énfasis cuádriceps)
+    {id:2, nombre:'🦵 Tren Inferior · Cuádriceps + Core', dia:4, duracion:75, tipo:'fuerza',
+     fasesOptimas:['folicular','ovulatoria','lutea'], descripcion:'Cuádriceps y volumen de piernas · Core dinámico · Segundo estímulo semanal tren inferior',
+     bloques:[
+       {nombre:'FUERZA Cuádriceps · ~45 min', ejercicios:[
+         {n:'Sentadilla (barra o goblet)',s:3,r:'10/8/6 ↑',d:90,nota:'Rodillas siguen los pies. Profundidad paralela o más.'},
+         {n:'Extensión de rodilla en máquina',s:3,r:'al fallo',d:60,nota:'Contracción total arriba. Baja lento 3 seg. Actualmente 45kg.'},
+         {n:'Zancada caminando con mancuernas',s:3,r:'10 c/pierna',d:75,nota:'Paso largo. Rodilla delantera no pasa el pie.'},
+         {n:'Prensa de pierna',s:3,r:'10/8/6 ↑',d:90,nota:'Pies a altura de caderas. NO bloquees rodillas. Actualmente 50kg.'},
+         {n:'Abducción de Caderas (máquina)',s:3,r:'15',d:45,nota:'Rango completo. Pausa afuera 1s. Actualmente 50kg.'},
+       ]},
+       {nombre:'CORE dinámico · ~10 min', ejercicios:[
+         {n:'V-ups',s:3,r:'12',d:30,nota:'Sube brazos y piernas al mismo tiempo. Baja controlado.'},
+         {n:'Mountain climbers',s:3,r:'30s',d:30,nota:'Caderas bajas. Rodillas alternan rápido. Core activo.'},
+         {n:'Rueda abdominal (ab wheel)',s:3,r:'8',d:45,nota:'Desde rodillas. Sin hundir la espalda baja. Regresa lento.'},
+       ]},
+       {nombre:'CALISTENIA core avanzado · ~10 min', ejercicios:[
+         {n:'Dragon flag negativo',s:3,r:'5 × 5s bajando',d:60,nota:'Solo la bajada lenta. Agarra el banco. Empieza tucada.'},
+         {n:'Hollow body rock',s:3,r:'20s',d:30,nota:'Forma de banana. Mece adelante/atrás. Sin perder posición.'},
+         {n:'Leg raises colgada en barra',s:3,r:'10',d:45,nota:'Cuelga de la barra. Sube piernas rectas a 90°. Sin balanceo.'},
+       ]},
      ]},
-    {id:3, nombre:'Tren Superior · Empuje', dia:4, duracion:60, fasesOptimas:['folicular','ovulatoria'], descripcion:'Hombros, pecho y tríceps.',
-     ejercicios:[
-       {n:'Press de Hombros  (Mancuerna)',s:4,r:'10-12',d:90,nota:'Actualmente en 9kg'},
-       {n:'Elevacion Frontal (Cable)',s:3,r:'12-15',d:60,nota:''},
-       {n:'Elevación Lateral a un Brazo (Cable)',s:3,r:'12-15',d:60,nota:''},
-       {n:'Aperturas de Pecho Sentado (Cable)',s:3,r:'12-15',d:60,nota:''},
-       {n:'Extensión de tríceps en polea',s:3,r:'12-15',d:60,nota:'Actualmente hasta 11.5kg'},
+
+    // VIERNES — Tren superior empuje + HIIT 20 min
+    {id:3, nombre:'🏅 Tren Superior Empuje + HIIT', dia:5, duracion:70, tipo:'fuerza+cardio',
+     fasesOptimas:['folicular','ovulatoria'], descripcion:'Hombro + Pecho + Tríceps · Fuerza PRIMERO · HIIT 20 min al final',
+     bloques:[
+       {nombre:'FUERZA Hombro + Pecho + Tríceps · ~45 min', ejercicios:[
+         {n:'Press militar (barra o mancuernas)',s:3,r:'10',d:90,nota:'Core activo. Baja a la barbilla. NO arqueés la espalda.'},
+         {n:'Elevaciones frontales',s:3,r:'10',d:60,nota:'Brazos casi rectos. Sube hasta altura de hombros. Baja 3 seg.'},
+         {n:'Elevaciones laterales',s:3,r:'10',d:60,nota:'Los CODOS guían. Actualmente 2.5-4.5kg.'},
+         {n:'Apertura en polea (pecho)',s:3,r:'10',d:60,nota:'Arco leve en el codo. Siente el estiramiento del pecho.'},
+         {n:'Máquina de pecho',s:3,r:'10',d:60,nota:'Pausa en contracción 1s. Pectoral completo.'},
+         {n:'Extensión de tríceps en polea',s:3,r:'10',d:60,nota:'Codos FIJOS al lado del cuerpo. Actualmente 11.5kg.'},
+       ]},
+       {nombre:'HIIT 20 min · al final', ejercicios:[
+         {n:'HIIT Tabata: 20s trabajo / 10s descanso',s:8,r:'4 min por bloque',d:10,nota:'Elige: cuerda de saltar, mountain climbers o burpees. Máxima intensidad.'},
+         {n:'Intervalo activo',s:2,r:'4 min trabajo / 1 min descanso',d:60,nota:'Escaladora o bicicleta a máxima resistencia tolerable.'},
+         {n:'Vuelta a la calma',s:1,r:'3 min suave',d:0,nota:'Baja la frecuencia cardíaca antes de estirar.'},
+       ]},
+     ]},
+
+    // SÁBADO — Cardio libre (calistenia + kickboxing)
+    {id:4, nombre:'⭐ Cardio Libre · Calistenia + Kickboxing', dia:6, duracion:60, tipo:'cardio',
+     fasesOptimas:['folicular','ovulatoria','lutea','menstrual'], descripcion:'Sin pesas · Elige tu cardio · Skills de calistenia · Kickboxing',
+     bloques:[
+       {nombre:'CALENTAMIENTO · 10 min', ejercicios:[
+         {n:'Jumping jacks',s:1,r:'2 min',d:0,nota:'Elevar frecuencia cardíaca gradualmente.'},
+         {n:'Inchworm + shoulder tap',s:2,r:'8 reps',d:30,nota:'Activar core, hombros y cadena posterior.'},
+         {n:'Sentadilla profunda con pausa',s:2,r:'10',d:30,nota:'Movilidad de tobillo y cadera.'},
+       ]},
+       {nombre:'HIIT o CALISTENIA · 20-25 min', ejercicios:[
+         {n:'HIIT Tabata 20 min',s:8,r:'20s trabajo / 10s descanso × 4 bloques',d:10,nota:'Elige: cuerda de saltar, mountain climbers, burpees o escaladora.'},
+         {n:'— O — Skill calistenia: Dominada asistida',s:4,r:'5-8',d:90,nota:'Sem 1-4: banda gruesa · Sem 5-8: delgada · Sem 9-12: sin banda ← META'},
+         {n:'Negative pull-up (bajada lenta 5s)',s:3,r:'5',d:60,nota:'Salta arriba. Solo baja lento. Fuerza excéntrica.'},
+         {n:'Dips en paralelas o banco',s:3,r:'8-12',d:60,nota:'Sem 1-4: banco · Sem 5-12: paralelas.'},
+         {n:'L-sit tucado en suelo',s:5,r:'5-15s',d:30,nota:'Progresa a piernas más extendidas cada semana.'},
+         {n:'Handstand contra pared',s:3,r:'15-30s',d:45,nota:'Sem 1: solo apoyar · Sem 12: 30s limpio.'},
+       ]},
+       {nombre:'KICKBOXING · 20 min', ejercicios:[
+         {n:'Round 1: Jab-Cross + pies',s:1,r:'3 min / 1 min descanso',d:60,nota:'Calentamiento técnico. Foco en el trabajo de pies.'},
+         {n:'Round 2: Jab-Cross-Hook (1-2-3)',s:1,r:'3 min / 1 min descanso',d:60,nota:'Evasión lateral después del combo.'},
+         {n:'Round 3: Combo completo (1-2-3-4)',s:1,r:'3 min / 1 min descanso',d:60,nota:'Jab-Cross-Hook-Uppercut. Poder desde las caderas.'},
+         {n:'Round 4: Combinación libre + rodillazo',s:1,r:'3 min / 1 min descanso',d:60,nota:'Expresión libre. Termina con todo.'},
+       ]},
      ]},
   ]
+}
+
+const DIAS=['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+const DIASF=['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+const FASES={
+  menstrual:{l:'Menstrual',e:'🌙',bg:'#fff0f0',bd:'#f5c0c8',tx:'#c94060',int:'Volumen reducido · Movilidad y técnica',tip:'Reset hormonal. Muévete suave. Hierro y magnesio hoy 🌙'},
+  folicular:{l:'Folicular',e:'🌸',bg:'#f0fff6',bd:'#a8dbb8',tx:'#1a6b4a',int:'Cargas máximas · El estrógeno te acompaña',tip:'Pico de síntesis proteica. El mejor momento del ciclo para romper récords 🌸'},
+  ovulatoria:{l:'Ovulatoria',e:'⚡',bg:'#fffbf0',bd:'#f5d898',tx:'#7a5000',int:'Peak de rendimiento · Máxima energía',tip:'VO2max y fuerza en el tope. Calienta bien las rodillas hoy ⚡'},
+  lutea:{l:'Lútea',e:'🍃',bg:'#f8f0ff',bd:'#d8c8ee',tx:'#5a3a8a',int:'Intensidad moderada · Escucha tu cuerpo',tip:'La progesterona sube el RPE. Más carbohidratos complejos. Perdónate si rinde menos 🍃'},
 };
 
-// ── STORAGE ────────────────────────────────────────────────
-const S = {
+const S={
   async get(k){try{const r=await window.storage.get(k);return r?JSON.parse(r.value):null}catch{return null}},
   async set(k,v){try{await window.storage.set(k,JSON.stringify(v))}catch{}},
 };
 
-// ── STATE ──────────────────────────────────────────────────
-let state = {
-  tab:'hoy', ciclo:null, fase:null, diaDelCiclo:null,
-  plan:null, logs:{}, composicion:[], rec:{},
-  energia:3, sueno:7.5, agua:2,
-  checked:{}, logGuardado:false, semana:1, ejSel:null,
-  hevyCargado:false
-};
+let ST={tab:'hoy',ciclo:null,fase:null,diac:null,plan:null,logs:{},comp:[],rec:{},
+  en:3,sue:7.5,ag:2,ejA:null,ejSel:null,sem:1};
 
-// ── CYCLE ──────────────────────────────────────────────────
+function hoy(){return new Date().toISOString().split('T')[0]}
 function calcFase(c){
   if(!c?.ultimoPeriodo)return null;
-  const dias=Math.floor((Date.now()-new Date(c.ultimoPeriodo))/86400000)%(c.duracion||28);
+  const d=Math.floor((Date.now()-new Date(c.ultimoPeriodo))/86400000)%(c.duracion||28);
   const dp=c.duracionPeriodo||5;
-  if(dias<dp)return 'menstrual';
-  if(dias<(c.duracion||28)*0.45)return 'folicular';
-  if(dias<(c.duracion||28)*0.55)return 'ovulatoria';
-  return 'lutea';
+  if(d<dp)return'menstrual';
+  if(d<(c.duracion||28)*.45)return'folicular';
+  if(d<(c.duracion||28)*.55)return'ovulatoria';
+  return'lutea';
 }
-function calcDiaCiclo(c){
-  if(!c?.ultimoPeriodo)return null;
-  return(Math.floor((Date.now()-new Date(c.ultimoPeriodo))/86400000)%(c.duracion||28))+1;
+function calcDiac(c){if(!c?.ultimoPeriodo)return null;return(Math.floor((Date.now()-new Date(c.ultimoPeriodo))/86400000)%(c.duracion||28))+1}
+function calcSem(p){if(!p?.fechaInicio)return 1;return Math.min(Math.floor((Date.now()-new Date(p.fechaInicio))/604800000)+1,p.semanas||12)}
+function calcScore(r){if(!r)return 0;const s=r.sueno||0,e=r.energia||0,fc=r.fcReposo||62,p=r.pasos||0;return Math.round(([s>=8?10:s>=7?8:s>=6?5:2,e*2,fc<=65?10:fc<=72?7:fc<=80?4:2,p>=10000?10:p>=7000?8:p>=5000?5:p>0?3:5].reduce((a,b)=>a+b,0))/4)}
+function ejsFlat(s){return s?.bloques?s.bloques.flatMap(b=>b.ejercicios):(s?.ejercicios||[])}
+function ultPeso(n){const fs=Object.keys(ST.logs).sort().reverse();for(const f of fs){const ej=ST.logs[f].ejercicios?.find(e=>e.nombre===n||e.n===n);if(ej?.series?.length){const mp=Math.max(...ej.series.map(s=>s.peso||0));if(mp>0)return mp;}}return null}
+function ultSeries(n){const fs=Object.keys(ST.logs).sort().reverse();for(const f of fs){const ej=ST.logs[f].ejercicios?.find(e=>e.nombre===n||e.n===n);if(ej?.series?.length)return{f,series:ej.series};}return null}
+function esc(s){return s.replace(/'/g,"\'").replace(/"/g,'&quot;')}
+function cssid(s){try{return CSS.escape(s)}catch{return s.replace(/[^a-zA-Z0-9-_]/g,'_')}}
+
+async function loadHevy(){
+  // Siempre escribe al storage si aún no está
+  const ya=await S.get('ef:hv');
+  if(!ya){for(const[f,l]of Object.entries(HEVY))await S.set('ef:log:'+f,l);await S.set('ef:hv',true);}
 }
-function calcSemana(p){
-  if(!p?.fechaInicio)return 1;
-  return Math.min(Math.floor((Date.now()-new Date(p.fechaInicio))/604800000)+1,p.semanas||12);
-}
-function calcScore(rec){
-  if(!rec)return 0;
-  const s=rec.sueno||0,e=rec.energia||0,fc=rec.fcReposo||62,p=rec.pasos||0;
-  return Math.round(([s>=8?10:s>=7?8:s>=6?5:2, e*2, fc<=65?10:fc<=72?7:fc<=80?4:2, p>=10000?10:p>=7000?8:p>=5000?5:p>0?3:5].reduce((a,b)=>a+b,0))/4);
+function mergeHevyIntoLogs(logs){
+  // Carga HEVY directamente en memoria — no depende de storage
+  for(const[f,l]of Object.entries(HEVY)){if(!logs[f])logs[f]=l;}
+  return logs;
 }
 
-// ── HEVY AUTO-LOAD ─────────────────────────────────────────
-async function cargarHevySiNecesario(){
-  const ya = await S.get('ef:hevy:cargado');
-  if(ya) return;
-  for(const [f,log] of Object.entries(HEVY_LOGS)){
-    await S.set('ef:log:'+f, log);
-  }
-  await S.set('ef:hevy:cargado', true);
-  state.hevyCargado = true;
-}
-
-// ── LOAD ───────────────────────────────────────────────────
-async function loadState(){
-  await cargarHevySiNecesario();
-  const ciclo = await S.get('ef:ciclo');
-  let plan = await S.get('ef:plan');
-  const comp = await S.get('ef:composicion');
-  const hevyCargado = await S.get('ef:hevy:cargado');
-
-  // Bio inicial si no existe
+async function load(){
+  await loadHevy();
+  const ciclo=await S.get('ef:ciclo');
+  const comp=await S.get('ef:composicion');
   if(!comp){
     const bio=[{fecha:'2026-05-06',peso:61.2,porcGrasa:28.2,masaMuscular:22.34,masaLibreGrasa:40.22,agua:29.44,grasaVisceral:7.0,metabolismoBasal:1403,imc:24.21,
       segmentario:{mlg:{tronco:20.83,brazoDer:2.22,brazoIzq:2.17,piernaDer:7.52,piernaIzq:7.47},grasa:{tronco:11.6,brazoDer:0.82,brazoIzq:0.87,piernaDer:1.96,piernaIzq:2.01}},
-      deltasMlg:{tronco:-1.73,brazoDer:-0.12,brazoIzq:-0.14,piernaDer:+0.26,piernaIzq:+0.20},deltasGrasa:{tronco:+1.14,brazoDer:+0.06,brazoIzq:+0.08,piernaDer:-0.43,piernaIzq:-0.37},
-      fuente:'Smart Fit Body',notas:'Medición inicial'}];
-    await S.set('ef:composicion',bio);
-    state.composicion=bio;
-  } else { state.composicion=comp; }
-
-  if(!plan){ await S.set('ef:plan',PLAN_DEFAULT); plan=PLAN_DEFAULT; }
-
-  state.ciclo=ciclo; state.fase=calcFase(ciclo); state.diaDelCiclo=calcDiaCiclo(ciclo);
-  state.plan=plan; state.semana=calcSemana(plan); state.hevyCargado=!!hevyCargado;
-
+      deltasMlg:{tronco:-1.73,brazoDer:-.12,brazoIzq:-.14,piernaDer:.26,piernaIzq:.20},
+      deltasGrasa:{tronco:1.14,brazoDer:.06,brazoIzq:.08,piernaDer:-.43,piernaIzq:-.37},fuente:'Smart Fit Body'}];
+    await S.set('ef:composicion',bio);ST.comp=bio;
+  } else ST.comp=comp;
+  await S.set('ef:plan',PLAN_DEFAULT);ST.plan=PLAN_DEFAULT;
+  ST.ciclo=ciclo;ST.fase=calcFase(ciclo);ST.diac=calcDiac(ciclo);ST.sem=calcSem(PLAN_DEFAULT);
   const logs={};
-  for(let i=0;i<90;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    const f=d.toISOString().split('T')[0];
-    const v=await S.get('ef:log:'+f);
-    if(v) logs[f]=v;
-  }
-  state.logs=logs;
-
+  for(let i=0;i<400;i++){const d=new Date();d.setDate(d.getDate()-i);const f=d.toISOString().split('T')[0];const v=await S.get('ef:log:'+f);if(v)logs[f]=v;}
+  // Siempre mezclar HEVY directo en memoria (no depende de storage)
+  mergeHevyIntoLogs(logs);
+  ST.logs=logs;
   const rec={};
-  for(let i=0;i<14;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    const f=d.toISOString().split('T')[0];
-    const v=await S.get('ef:rec:'+f);
-    if(v) rec[f]=v;
-  }
-  state.rec=rec;
-
-  const hoy=new Date().toISOString().split('T')[0];
-  if(state.logs[hoy]?.completada) state.logGuardado=true;
+  for(let i=0;i<14;i++){const d=new Date();d.setDate(d.getDate()-i);const f=d.toISOString().split('T')[0];const v=await S.get('ef:rec:'+f);if(v)rec[f]=v;}
+  ST.rec=rec;
   render();
 }
 
-// ── RENDER ─────────────────────────────────────────────────
 function render(){
-  updateHeader();
-  const content=document.getElementById('content');
-  content.innerHTML='';
-  const panel=document.createElement('div');
-  panel.className='panel';
-  switch(state.tab){
-    case 'hoy': panel.innerHTML=renderHoy(); break;
-    case 'semana': panel.innerHTML=renderSemana(); break;
-    case 'progresion': panel.innerHTML=renderProgresion(); break;
-    case 'cuerpo': panel.innerHTML=renderCuerpo(); break;
-    case 'ciclo': panel.innerHTML=renderCiclo(); break;
-    case 'ajustes': panel.innerHTML=renderAjustes(); break;
-  }
-  content.appendChild(panel);
+  updateHdr();
+  const body=document.getElementById('body');
+  body.innerHTML='';
+  const p=document.createElement('div');p.className='panel';
+  switch(ST.tab){case'hoy':p.innerHTML=rHoy();break;case'semana':p.innerHTML=rSemana();break;case'prog':p.innerHTML=rProg();break;case'cuerpo':p.innerHTML=rCuerpo();break;case'ciclo':p.innerHTML=rCiclo();break;case'ajustes':p.innerHTML=rAjustes();break;}
+  body.appendChild(p);
+  setTimeout(afterRender,20);
 }
 
-function updateHeader(){
-  const f=state.fase?FASES[state.fase]:null;
-  const badge=document.getElementById('fase-badge');
-  const sub=document.getElementById('plan-sub');
-  sub.textContent='Sem. '+state.semana+' de '+(state.plan?.semanas||12)+' · Recomposición';
-  if(f){
-    badge.style.display='inline-block';
-    badge.textContent=f.emoji+' '+f.label;
-    badge.style.background=f.badgeBg; badge.style.borderColor=f.badgeBorder; badge.style.color=f.badgeColor;
-  } else { badge.style.display='none'; }
+function updateHdr(){
+  const f=ST.fase?FASES[ST.fase]:null;
+  document.getElementById('hdr-sub').textContent='Semana '+ST.sem+' de '+(ST.plan?.semanas||12)+' · Recomposición';
+  const tag=document.getElementById('fase-tag');
+  if(f){tag.style.display='inline-flex';tag.textContent=f.e+' '+f.l;tag.style.background=f.bg;tag.style.borderColor=f.bd;tag.style.color=f.tx;}
+  else tag.style.display='none';
 }
 
-// ── HOY ─────────────────────────────────────────────────────
-function renderHoy(){
-  const hoy=new Date().toISOString().split('T')[0];
-  const diaHoy=new Date().getDay();
-  const plan=state.plan||PLAN_DEFAULT;
-  const sesion=plan.sesiones?.find(s=>s.dia===diaHoy);
-  const f=state.fase?FASES[state.fase]:null;
-  const logHoy=state.logs[hoy];
-  const recHoy=state.rec[hoy];
-  let html='';
+// ── HOY ──────────────────────────────────────────────────
+function rHoy(){
+  const dw=new Date().getDay();
+  const plan=ST.plan||PLAN_DEFAULT;
+  const ses=plan.sesiones?.find(s=>s.dia===dw);
+  const f=ST.fase?FASES[ST.fase]:null;
+  const rH=ST.rec[hoy()];
+  const logH=ST.logs[hoy()];
+  let h='';
 
   if(f){
-    html+=`<div class="card" style="border-color:${f.badgeBorder};background:${f.badgeBg}">
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
-        <span style="font-size:22px">${f.emoji}</span>
-        <div><div style="font-size:14px;font-weight:700;color:${f.badgeColor}">${f.intensidad}</div>
-        <div style="font-size:11px;color:rgba(255,255,255,0.5)">Día ${state.diaDelCiclo} del ciclo</div></div>
+    h+=`<div class="ban p">
+      <div style="display:flex;align-items:center;gap:7px;margin-bottom:4px">
+        <span style="font-size:20px">${f.e}</span>
+        <div><strong style="font-size:13px;color:${f.tx}">${f.int}</strong>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px">Día ${ST.diac} del ciclo</div></div>
       </div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.55">${f.tip}</div>
+      <div style="font-size:12px;line-height:1.5">${f.tip}</div>
     </div>`;
   } else {
-    html+=`<div class="banner amber">⚡ Registra tu ciclo en la pestaña <b>Ciclo</b> para personalizar la intensidad.</div>`;
+    h+=`<div class="ban o">💡 Agrega tu fecha de período en <strong>Ciclo</strong> para personalizar tu entrenamiento según tus hormonas.</div>`;
   }
 
-  // Check-in
-  const checkinGuardado=recHoy?.checkinCompleto;
-  if(!checkinGuardado){
-    html+=`<div class="card">
-      <div class="card-label">Check-in de recuperación</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-        <div><div style="font-size:12px;color:var(--muted);margin-bottom:6px">😴 Sueño</div>
-          <div class="slider-wrap"><input type="range" min="4" max="10" step="0.5" value="${state.sueno}" oninput="state.sueno=parseFloat(this.value);document.getElementById('sv').textContent=this.value+'h'">
-          <span class="slider-val" id="sv">${state.sueno}h</span></div>
-        </div>
-        <div><div style="font-size:12px;color:var(--muted);margin-bottom:6px">⚡ Energía</div>
-          <div class="energy-stars">${[1,2,3,4,5].map(n=>`<button class="star ${n<=state.energia?'on':''}" onclick="setEnergia(${n})">${n}</button>`).join('')}</div>
-        </div>
+  // Checkin
+  if(!rH?.checkinCompleto){
+    h+=`<div class="card">
+      <div class="card-label">¿Cómo amaneciste hoy? 🌿</div>
+      <div class="ci-grid">
+        <div class="ci-field"><div class="ci-label">😴 Sueño</div>
+          <div class="slider-row"><input type="range" min="4" max="10" step="0.5" value="${ST.sue}" id="sl-sue" oninput="ST.sue=parseFloat(this.value);document.getElementById('sv').textContent=this.value+'h'">
+          <span class="sv" id="sv">${ST.sue}h</span></div></div>
+        <div class="ci-field"><div class="ci-label">⚡ Energía</div>
+          <div class="e-row">${[1,2,3,4,5].map(n=>`<button class="e-btn${n<=ST.en?' on':''}" onclick="ST.en=${n};document.querySelectorAll('.e-btn').forEach((b,i)=>b.classList.toggle('on',i<${n}))">${n}</button>`).join('')}</div></div>
       </div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px">
-        <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px">👟 Pasos (miles)</div>
-          <input class="inp" type="number" id="ci-pasos" placeholder="ej: 8" step="0.1" value="${recHoy?.pasos?Math.round(recHoy.pasos/1000):''}"></div>
-        <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px">💓 FC reposo</div>
-          <input class="inp" type="number" id="ci-fc" placeholder="ej: 62" value="${recHoy?.fcReposo||''}"></div>
+      <div class="ci-grid" style="margin-bottom:10px">
+        <div class="ci-field"><div class="ci-label">👟 Pasos (miles)</div>
+          <input class="inp" type="number" id="ci-p" placeholder="ej: 8" step="0.5" value="${rH?.pasos?Math.round(rH.pasos/1000):''}"></div>
+        <div class="ci-field"><div class="ci-label">💓 FC reposo</div>
+          <input class="inp" type="number" id="ci-fc" placeholder="ej: 62" value="${rH?.fcReposo||''}"></div>
       </div>
-      <div style="margin-bottom:14px"><div style="font-size:12px;color:var(--muted);margin-bottom:6px">💧 Agua</div>
-        <div style="display:flex;gap:6px">${[1,1.5,2,2.5,3].map(l=>`<button class="star ${state.agua===l?'on':''}" style="font-size:11px" onclick="setAgua(${l})">${l}L</button>`).join('')}</div>
-      </div>
-      <button class="hc-btn primary" onclick="guardarCheckin()" style="font-size:13px;padding:12px">Guardar check-in</button>
+      <div style="margin-bottom:12px"><div class="ci-label" style="margin-bottom:6px">💧 Agua</div>
+        <div class="agua-row">${[1,1.5,2,2.5,3].map(l=>`<button class="a-btn${ST.ag===l?' on':''}" onclick="ST.ag=${l};document.querySelectorAll('.a-btn').forEach((b,i)=>b.classList.toggle('on',[1,1.5,2,2.5,3][i]===${l}))">${l}L</button>`).join('')}</div></div>
+      <button class="btn-p" onclick="saveCI()">Guardar check-in ✨</button>
     </div>`;
   } else {
-    const sc=calcScore(recHoy);
-    const sc_color=sc>=7?'var(--green)':sc>=5?'var(--amber)':'var(--red)';
-    html+=`<div class="card">
-      <div class="row-between" style="margin-bottom:10px">
-        <div class="card-label" style="margin-bottom:0">Recuperación de hoy</div>
-        <div style="font-size:20px;font-weight:800;color:${sc_color}">${sc}<span style="font-size:12px;font-weight:400;color:var(--muted)">/10</span></div>
+    const sc=calcScore(rH);const sc_c=sc>=7?'#1a6b4a':sc>=5?'#7a5000':'#c94060';
+    const circ=2*Math.PI*22;
+    h+=`<div class="card" style="display:flex;align-items:center;gap:14px">
+      <div class="ring-wrap">
+        <svg width="58" height="58" viewBox="0 0 58 58"><circle cx="29" cy="29" r="22" fill="none" stroke="#f0dde2" stroke-width="5"/>
+        <circle cx="29" cy="29" r="22" fill="none" stroke="${sc_c}" stroke-width="5" stroke-dasharray="${circ}" stroke-dashoffset="${circ-circ*sc/10}" stroke-linecap="round"/></svg>
+        <div class="ring-num" style="color:${sc_c}">${sc}</div>
       </div>
-      <div class="metrics-grid cols-3">
-        <div class="metric-box ${recHoy.sueno>=7.5?'good':''}"><div class="metric-label">😴 Sueño</div><div class="metric-value">${recHoy.sueno?.toFixed(1)}h</div></div>
-        <div class="metric-box ${recHoy.energia>=4?'good':recHoy.energia<=2?'alert':''}"><div class="metric-label">⚡ Energía</div><div class="metric-value">${recHoy.energia}/5</div></div>
-        <div class="metric-box"><div class="metric-label">💧 Agua</div><div class="metric-value">${recHoy.agua||'—'}L</div></div>
-      </div>
-      ${sc<5?'<div class="banner red" style="margin-top:10px;margin-bottom:0">⚠️ Recuperación baja. Considera reducir la intensidad hoy.</div>':''}
-      <button class="btn-sm" style="width:100%;margin-top:10px;font-size:11px;opacity:0.5" onclick="resetCheckin()">Editar</button>
-    </div>`;
-  }
-
-  // Sesión
-  const diasDescanso=!(plan.sesiones||[]).find(s=>s.dia===diaHoy);
-  if(diasDescanso){
-    html+=`<div class="card" style="text-align:center;padding:28px 20px">
-      <div style="font-size:36px;margin-bottom:8px">🛋️</div>
-      <div style="font-size:16px;font-weight:700;margin-bottom:6px">Día de recuperación</div>
-      <div style="font-size:13px;color:var(--muted)">Camina, movilidad suave, descansa.</div>
-    </div>`;
-  } else if(sesion){
-    const completada=state.logGuardado||logHoy?.completada;
-    html+=`<div class="card">
-      <div class="row-between" style="margin-bottom:4px">
-        <div><div class="card-label">Sesión de hoy</div><div class="card-title">${sesion.nombre}</div></div>
-        <div style="font-size:12px;color:var(--muted);font-family:'DM Mono',monospace">${sesion.duracion}min</div>
-      </div>
-      <div style="font-size:12px;color:var(--muted);margin-bottom:14px">${sesion.descripcion}</div>
-      <div>`;
-    sesion.ejercicios.forEach((ej,i)=>{
-      const done=!!state.checked[i];
-      html+=`<div class="ej-row ${done?'ej-done':''}" id="er-${i}">
-        <div class="ej-check ${done?'done':''}" id="ec-${i}" onclick="toggleCheck(${i})">
-          <svg viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="#0a0a0a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <div style="flex:1">
+        <div style="font-size:13px;font-weight:700;margin-bottom:7px">Recuperación de hoy</div>
+        <div class="m-grid c3">
+          <div class="m-box ${rH.sueno>=7.5?'g':''}"><div class="m-lbl">😴</div><div class="m-val" style="font-size:13px">${rH.sueno?.toFixed(1)}h</div></div>
+          <div class="m-box ${rH.energia>=4?'g':rH.energia<=2?'p':''}"><div class="m-lbl">⚡</div><div class="m-val" style="font-size:13px">${rH.energia}/5</div></div>
+          <div class="m-box l"><div class="m-lbl">💧</div><div class="m-val" style="font-size:13px">${rH.agua||'—'}L</div></div>
         </div>
-        <div class="ej-info"><div class="ej-name">${ej.n}</div>
-          <div class="ej-detail">${ej.s}×${ej.r} · ${ej.d}s${ej.nota?' · '+ej.nota:''}</div>
-        </div></div>`;
-    });
-    html+=`</div>`;
-    if(!completada){
-      html+=`<div style="margin-top:14px">
-        <div style="margin-bottom:12px"><div style="font-size:12px;color:var(--muted);margin-bottom:6px">Energía</div>
-          <div class="energy-stars">${[1,2,3,4,5].map(n=>`<button class="star ${n<=state.energia?'on':''}" onclick="setEnergia(${n})">${n}</button>`).join('')}</div>
-        </div>
-        <button class="hc-btn primary" onclick="completarSesion()">✓ Completar sesión</button>
-      </div>`;
-    } else {
-      html+=`<div class="banner green" style="margin-top:12px">✓ Sesión registrada</div>`;
-    }
-    html+=`</div>`;
-  }
-  html+=`<div class="banner amber" style="margin-top:4px">🥊 El kickboxing cuenta como HIIT. Día de kickboxing intenso = reduce volumen al día siguiente.</div>`;
-  return html;
-}
-
-function toggleCheck(i){
-  state.checked[i]=!state.checked[i];
-  document.getElementById('er-'+i)?.classList.toggle('ej-done',state.checked[i]);
-  const chk=document.getElementById('ec-'+i);
-  if(chk) chk.classList.toggle('done',state.checked[i]);
-}
-function setEnergia(n){state.energia=n;document.querySelectorAll('.energy-stars .star').forEach((s,i)=>s.classList.toggle('on',i<n));}
-function setAgua(l){state.agua=l;render();}
-
-async function guardarCheckin(){
-  const hoy=new Date().toISOString().split('T')[0];
-  const pasos=parseFloat(document.getElementById('ci-pasos')?.value)||0;
-  const fc=parseInt(document.getElementById('ci-fc')?.value)||0;
-  const prev=await S.get('ef:rec:'+hoy)||{};
-  const rec={...prev,sueno:state.sueno,energia:state.energia,agua:state.agua,
-    pasos:pasos?pasos*1000:(prev.pasos||0),fcReposo:fc||prev.fcReposo||null,
-    checkinCompleto:true,fecha:hoy};
-  await S.set('ef:rec:'+hoy,rec);
-  state.rec[hoy]=rec;
-  render();
-}
-async function resetCheckin(){
-  const hoy=new Date().toISOString().split('T')[0];
-  const prev=await S.get('ef:rec:'+hoy)||{};
-  await S.set('ef:rec:'+hoy,{...prev,checkinCompleto:false});
-  state.rec[hoy]={...(state.rec[hoy]||{}),checkinCompleto:false};
-  render();
-}
-async function completarSesion(){
-  const hoy=new Date().toISOString().split('T')[0];
-  const diaHoy=new Date().getDay();
-  const sesion=(state.plan||PLAN_DEFAULT).sesiones?.find(s=>s.dia===diaHoy);
-  await S.set('ef:log:'+hoy,{fecha:hoy,sesionNombre:sesion?.nombre,
-    ejercicios:sesion?.ejercicios?.map(e=>({nombre:e.n,series:[]}))||[],
-    energia:state.energia,suenoAnoche:state.sueno,faseCiclo:state.fase,completada:true});
-  const prevRec=await S.get('ef:rec:'+hoy)||{};
-  await S.set('ef:rec:'+hoy,{...prevRec,sueno:state.sueno,energia:state.energia});
-  state.logGuardado=true;
-  state.logs[hoy]={completada:true};
-  render();
-}
-
-// ── SEMANA ─────────────────────────────────────────────────
-function renderSemana(){
-  const hoy=new Date(); const diaHoy=hoy.getDay();
-  const plan=state.plan||PLAN_DEFAULT;
-  let completadas=0,total=plan.sesiones?.length||4;
-  for(const s of (plan.sesiones||[])){
-    const d=new Date(hoy); d.setDate(d.getDate()+(s.dia-diaHoy));
-    const f=d.toISOString().split('T')[0];
-    if(state.logs[f]?.completada) completadas++;
-  }
-  let html=`<div class="card">
-    <div class="row-between" style="margin-bottom:8px">
-      <div class="card-label" style="margin-bottom:0">Adherencia semanal</div>
-      <div style="font-family:'DM Mono',monospace;font-size:13px;color:${completadas>=total?'var(--green)':'var(--muted)'}">${completadas}/${total}</div>
+      </div>
     </div>
-    <div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:${(completadas/total)*100}%;background:linear-gradient(90deg,var(--red),var(--accent))"></div></div></div>
-  </div>`;
+    ${sc<5?'<div class="ban p">⚠️ Recuperación baja. Considera reducir la intensidad hoy y priorizar el descanso esta noche.</div>':''}
+    <div style="margin-bottom:10px"><button class="btn-sec" style="opacity:.6" onclick="resetCI()">Editar check-in</button></div>`;
+  }
 
-  html+=`<div class="week-grid" style="margin-bottom:12px">`;
+  // Sesión o descanso
+  if(!ses){
+    const dw2=new Date().getDay();
+    const msg=dw2===3?'Mitad de semana 🌿 Descanso estratégico para que el jueves rindas al máximo. Movilidad de cadera si quieres.':dw2===0?'Domingo de descanso 🌸 Come bien, duerme bien. Prepara tu semana mentalmente.':'Día de descanso activo. Camina, estira, recupérate.';
+    h+=`<div class="rest-card">
+      <div style="font-size:48px;margin-bottom:10px">🌸</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--text);margin-bottom:7px">Día de descanso</div>
+      <div style="font-size:13px;color:var(--text-2);line-height:1.6">${msg}</div>
+    </div>
+    <div class="ban l">💤 Esta noche: 10 min de flexibilidad antes de dormir. Cadena posterior: glúteo, isquio, gemelos.</div>`;
+  } else {
+    const eList=ejsFlat(ses);
+    const total=eList.length;
+    const hecho=eList.filter(ej=>logH?.ejercicios?.find(e=>(e.nombre===ej.n||e.n===ej.n)&&e.completado)).length;
+    const pct=total?Math.round(hecho/total*100):0;
+    h+=`<div class="card pink">
+      <div class="card-label">${ses.tipo||'fuerza'} · ${ses.duracion} min</div>
+      <div class="card-title">${ses.nombre}</div>
+      <div class="card-desc" style="margin-bottom:10px">${ses.descripcion}</div>
+      <div class="prog-row"><span style="font-size:12px;color:var(--text-2)">${hecho} de ${total} ejercicios</span><span style="font-size:12px;font-weight:800;color:var(--pink)">${pct}%</span></div>
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+    </div>`;
+
+    if(ses.bloques){
+      ses.bloques.forEach(bloque=>{
+        h+=`<div class="bloque-hdr"><div class="bloque-dot"></div><div class="bloque-name">${bloque.nombre}</div></div>`;
+        bloque.ejercicios.forEach(ej=>{h+=mkEj(ej,logH);});
+      });
+    } else {
+      (ses.ejercicios||[]).forEach(ej=>{h+=mkEj(ej,logH);});
+    }
+
+    const tipo=ses.tipo||'';
+    if(tipo.includes('fuerza')&&tipo.includes('cardio')){
+      h+=`<div class="ban o" style="margin-top:4px">🏋️🥊 Fuerza + HIIT: carbohidrato pre-entreno (1-2h antes). Post-entreno inmediato: proteína + fruta. El HIIT activa quema de grasa hasta 24h.</div>`;
+    } else if(tipo==='fuerza'){
+      h+=`<div class="ban p" style="margin-top:4px">🏋️ Post-entreno (30-40 min): 25-30g proteína + carbohidrato. Meta del día: 110g proteína total.</div>`;
+    } else {
+      h+=`<div class="ban o" style="margin-top:4px">🥊 Cardio libre: pre-entreno ligero. Post-entreno: proteína + carbohidrato complejo. Hidratación clave hoy.</div>`;
+    }
+    h+=`<div class="ban l" style="margin-top:4px">💤 Esta noche: 10 min de flexibilidad.</div>`;
+  }
+  return h;
+}
+
+function mkEj(ej,logH){
+  const logEj=logH?.ejercicios?.find(e=>e.nombre===ej.n||e.n===ej.n);
+  const done=!!logEj?.completado;
+  const seriesHoy=logEj?.series||[];
+  const isOpen=ST.ejA===ej.n;
+  const us=ultSeries(ej.n);
+  const cid=cssid(ej.n);
+
+  let lastTxt='';
+  if(us?.series?.length){
+    const ss=us.series.filter(s=>s.reps||(s.peso&&s.peso>0));
+    if(ss.length){
+      const d=new Date(us.f);
+      const ds=d.toLocaleDateString('es',{day:'numeric',month:'short'});
+      const res=ss.slice(-3).map(s=>`${s.peso||'P/C'}${s.peso?'kg':''}×${s.reps}`).join(' · ');
+      lastTxt=`📅 Última vez (${ds}): ${res}`;
+    }
+  }
+
+  const e2=esc(ej.n);
+  const ultP=ultPeso(ej.n)||'';
+
+  let out=`<div class="ej${done?' done':''}${isOpen?' open':''}" id="ej-${cid}">
+    <div class="ej-top" onclick="toggleEj('${e2}')">
+      <div class="ej-cb"><svg width="11" height="9" viewBox="0 0 11 9" fill="none"><path d="M1 4.5L4 7.5L10 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+      <div class="ej-body">
+        <div class="ej-name">${ej.n}</div>
+        <div class="ej-meta">${ej.s} series × ${ej.r}${ej.d?' · '+ej.d+'s descanso':''}</div>
+        ${lastTxt?`<div class="ej-last">${lastTxt}</div>`:''}
+        ${ej.nota?`<div class="ej-nota">💡 ${ej.nota}</div>`:''}
+      </div>
+      <div class="ej-chevron">▾</div>
+    </div>
+    <div class="logger">
+      ${seriesHoy.length?`<div class="series-chips">${seriesHoy.map((s,i)=>`<span class="s-chip">${s.peso||'P/C'}${s.peso?'kg':''}×${s.reps}${s.rpe?' @'+s.rpe:''}<span class="x" onclick="event.stopPropagation();delS('${e2}',${i})">×</span></span>`).join('')}</div>`:'<div class="series-chips" id="sc-'+cid+'"></div>'}
+      <div class="log-inputs">
+        <div class="log-field"><div class="log-lbl">Peso kg</div><input class="log-inp" type="number" id="lp-${cid}" value="${ultP}" placeholder="kg" step="1.25" onclick="event.stopPropagation()"></div>
+        <div class="log-field"><div class="log-lbl">Reps</div><input class="log-inp" type="number" id="lr-${cid}" placeholder="${String(ej.r).split('/')[0].split('-')[0]||'8'}" onclick="event.stopPropagation()"></div>
+        <div class="log-field"><div class="log-lbl">RPE</div><input class="log-inp" type="number" id="lrpe-${cid}" placeholder="8" min="6" max="10" onclick="event.stopPropagation()"></div>
+      </div>
+      <div class="adj-row">
+        ${[-2.5,-1.25,1.25,2.5].map(d=>`<button class="adj" onclick="event.stopPropagation();adjP('${e2}','${cid}',${d})">${d>0?'+':''}${d}</button>`).join('')}
+      </div>
+      <button class="btn-add${done?' done-btn':''}" onclick="event.stopPropagation();addS('${e2}','${cid}')">+ Agregar serie</button>
+      ${done?`<button class="btn-sec" onclick="event.stopPropagation();markDone('${e2}',false)">↩ Desmarcar ejercicio</button>`:
+        `<button class="btn-sec" onclick="event.stopPropagation();markDone('${e2}',true)">✓ Marcar como completado</button>`}
+      <div id="lmsg-${cid}" class="log-saved">✨ Serie guardada</div>
+    </div>
+  </div>`;
+  return out;
+}
+
+function toggleEj(n){ST.ejA=ST.ejA===n?null:n;render()}
+function adjP(n,cid,d){const i=document.getElementById('lp-'+cid);if(!i)return;const v=parseFloat(i.value)||0;i.value=Math.max(0,v+d).toFixed(2).replace(/\.?0+$/,'')}
+
+async function addS(n,cid){
+  const peso=parseFloat(document.getElementById('lp-'+cid)?.value);
+  const reps=parseInt(document.getElementById('lr-'+cid)?.value);
+  const rpe=parseInt(document.getElementById('lrpe-'+cid)?.value)||null;
+  if(!reps){document.getElementById('lr-'+cid)?.focus();return;}
+  const f=hoy();
+  const log=await S.get('ef:log:'+f)||{fecha:f,ejercicios:[],completada:false};
+  const ei=log.ejercicios.findIndex(e=>e.nombre===n||e.n===n);
+  const serie={...(peso?{peso}:{}),reps,...(rpe?{rpe}:{})};
+  if(ei>=0)log.ejercicios[ei].series=[...(log.ejercicios[ei].series||[]),serie];
+  else log.ejercicios.push({nombre:n,series:[serie],completado:false});
+  await S.set('ef:log:'+f,log);ST.logs[f]=log;
+  document.getElementById('lr-'+cid).value='';
+  if(document.getElementById('lrpe-'+cid))document.getElementById('lrpe-'+cid).value='';
+  const msg=document.getElementById('lmsg-'+cid);
+  if(msg){msg.style.display='block';setTimeout(()=>{if(msg)msg.style.display='none'},1500)}
+  const sc=document.getElementById('sc-'+cid)||document.querySelector(`#ej-${cid} .series-chips`);
+  const ss=log.ejercicios.find(e=>e.nombre===n||e.n===n)?.series||[];
+  const e2=esc(n);
+  if(sc){sc.innerHTML=ss.map((s,i)=>`<span class="s-chip">${s.peso||'P/C'}${s.peso?'kg':''}×${s.reps}${s.rpe?' @'+s.rpe:''}<span class="x" onclick="event.stopPropagation();delS('${e2}',${i})">×</span></span>`).join('')}
+  setTimeout(()=>document.getElementById('lr-'+cid)?.focus(),50);
+}
+
+async function delS(n,idx){
+  const f=hoy();const log=await S.get('ef:log:'+f)||{fecha:f,ejercicios:[],completada:false};
+  const ei=log.ejercicios.findIndex(e=>e.nombre===n||e.n===n);
+  if(ei>=0)log.ejercicios[ei].series.splice(idx,1);
+  await S.set('ef:log:'+f,log);ST.logs[f]=log;render();
+}
+
+async function markDone(n,val){
+  const f=hoy();const log=await S.get('ef:log:'+f)||{fecha:f,ejercicios:[],completada:false};
+  const ei=log.ejercicios.findIndex(e=>e.nombre===n||e.n===n);
+  if(ei>=0)log.ejercicios[ei].completado=val;
+  else log.ejercicios.push({nombre:n,series:[],completado:val});
+  await S.set('ef:log:'+f,log);ST.logs[f]=log;ST.ejA=null;render();
+}
+
+async function saveCI(){
+  const f=hoy();const pasos=parseFloat(document.getElementById('ci-p')?.value)||0;const fc=parseInt(document.getElementById('ci-fc')?.value)||0;
+  const prev=await S.get('ef:rec:'+f)||{};
+  const rec={...prev,sueno:ST.sue,energia:ST.en,agua:ST.ag,pasos:pasos?pasos*1000:(prev.pasos||0),fcReposo:fc||prev.fcReposo||null,checkinCompleto:true,fecha:f};
+  await S.set('ef:rec:'+f,rec);ST.rec[f]=rec;render();
+}
+async function resetCI(){
+  const f=hoy();const prev=await S.get('ef:rec:'+f)||{};
+  await S.set('ef:rec:'+f,{...prev,checkinCompleto:false});ST.rec[f]={...(ST.rec[f]||{}),checkinCompleto:false};render();
+}
+
+// ── SEMANA ────────────────────────────────────────────────
+function rSemana(){
+  const dw=new Date().getDay();const plan=ST.plan||PLAN_DEFAULT;
+  let comp=0,tot=plan.sesiones?.length||4;
+  for(const s of(plan.sesiones||[])){const d=new Date();d.setDate(d.getDate()+(s.dia-dw));const f=d.toISOString().split('T')[0];if(ST.logs[f]?.completada)comp++;}
+  let h=`<div class="card pink">
+    <div class="card-label">adherencia semanal</div>
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+      <div style="font-family:'Nunito',sans-serif;font-size:17px;font-weight:800;color:var(--text)">${comp} de ${tot} sesiones</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:800;color:var(--pink)">${Math.round(comp/tot*100)}%</div>
+    </div>
+    <div class="prog-track"><div class="prog-fill" style="width:${comp/tot*100}%"></div></div>
+  </div>
+  <div class="wk-grid">`;
   for(let d=0;d<7;d++){
-    const sesion=(plan.sesiones||[]).find(s=>s.dia===d);
-    const fd=new Date(hoy); fd.setDate(fd.getDate()+(d-diaHoy));
-    const fstr=fd.toISOString().split('T')[0];
-    const done=state.logs[fstr]?.completada;
-    html+=`<div class="day-cell ${d===diaHoy?'today':''} ${done&&sesion?'done':''}">
-      <div class="day-name">${DIAS[d]}</div>
-      ${sesion?`<div class="day-icon">${done?'✓':'🏋️'}</div>`:`<div class="day-dot"></div>`}
+    const ses=(plan.sesiones||[]).find(s=>s.dia===d);
+    const fd=new Date();fd.setDate(fd.getDate()+(d-dw));const fstr=fd.toISOString().split('T')[0];
+    const done=ST.logs[fstr]?.completada;
+    const ico=done?'✓':ses?.tipo?.includes('cardio')&&!ses?.tipo?.includes('fuerza')?'🥊':ses?.tipo?.includes('fuerza')?'🏋️':'';
+    h+=`<div class="wk${d===dw?' today':''}${done&&ses?' done':''}">
+      <div class="wk-d">${DIAS[d]}</div>
+      ${ses?`<div class="wk-i">${ico||'🌸'}</div>`:`<div class="wk-dot"></div>`}
     </div>`;
   }
-  html+=`</div>`;
+  h+=`</div>`;
 
-  // Recuperación 7 días
+  // 7-day recovery
   const dias7=[];
-  for(let i=6;i>=0;i--){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    const f=d.toISOString().split('T')[0];
-    const r=state.rec[f];
-    if(r?.checkinCompleto) dias7.push({f:f.slice(5),s:calcScore(r)});
-  }
+  for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const f=d.toISOString().split('T')[0];const r=ST.rec[f];if(r?.checkinCompleto)dias7.push({f:f.slice(5),s:calcScore(r)});}
   if(dias7.length>0){
-    html+=`<div class="card"><div class="card-label">Recuperación 7 días</div>
-      <div style="display:flex;gap:5px;align-items:flex-end;height:48px;margin-bottom:8px">
-        ${dias7.map(d=>{const h=Math.round((d.s/10)*48);const c=d.s>=7?'var(--green)':d.s>=5?'var(--amber)':'var(--red)';
-          return`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:3px">
-            <div style="width:100%;height:${h}px;background:${c};border-radius:4px;opacity:0.7;min-height:4px"></div>
-            <div style="font-size:9px;color:var(--muted)">${d.f.slice(3)}</div>
+    h+=`<div class="card"><div class="card-label">recuperación 7 días</div>
+      <div style="display:flex;gap:5px;align-items:flex-end;height:44px;margin:8px 0">
+        ${dias7.map(d=>{const ht=Math.round(d.s/10*44);const c=d.s>=7?'var(--mint)':d.s>=5?'var(--peach)':'var(--pink)';
+          return`<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px">
+            <div style="width:100%;height:${ht}px;background:${c};border-radius:4px;min-height:3px;opacity:.85"></div>
+            <div style="font-size:9px;color:var(--text-3)">${d.f.slice(3)}</div>
           </div>`;}).join('')}
       </div>
     </div>`;
   }
 
-  for(const s of (plan.sesiones||[])){
-    const faseTags=s.fasesOptimas.map(f=>`<span class="tag" style="background:${FASES[f]?.badgeBg};border-color:${FASES[f]?.badgeBorder};color:${FASES[f]?.badgeColor}">${FASES[f]?.emoji}</span>`).join('');
-    const esOpt=state.fase&&s.fasesOptimas.includes(state.fase);
-    html+=`<div class="card" style="${esOpt?'border-color:rgba(232,255,107,0.2)':''}">
-      <div class="row-between">
-        <div><div class="card-label">${DIAS_FULL[s.dia]}</div>
-          <div style="font-size:15px;font-weight:700">${s.nombre}</div>
-          <div style="font-size:12px;color:var(--muted);margin-top:2px">${s.ejercicios.length} ejercicios · ${s.duracion}min</div>
+  const dCon=new Set((plan.sesiones||[]).map(s=>s.dia));
+  const dDesc=[0,1,2,3,4,5,6].filter(d=>!dCon.has(d));
+  if(dDesc.length){
+    h+=`<div class="card"><div class="card-label">días de descanso</div>
+      <div style="display:flex;gap:5px;flex-wrap:wrap;margin-top:6px">
+        ${dDesc.map(d=>`<span style="padding:5px 11px;border-radius:20px;font-size:12px;font-weight:700;background:var(--pink-soft);border:1px solid var(--pink-mid);color:var(--pink-deep)">🌸 ${DIASF[d]}</span>`).join('')}
+      </div></div>`;
+  }
+
+  for(const s of(plan.sesiones||[])){
+    const fTags=s.fasesOptimas.map(f=>`<span style="padding:2px 7px;border-radius:20px;font-size:10px;font-weight:700;background:${FASES[f]?.bg};border:1px solid ${FASES[f]?.bd};color:${FASES[f]?.tx}">${FASES[f]?.e} ${FASES[f]?.l}</span>`).join('');
+    const opt=ST.fase&&s.fasesOptimas.includes(ST.fase);
+    const nEj=s.bloques?s.bloques.reduce((a,b)=>a+b.ejercicios.length,0):(s.ejercicios?.length||0);
+    const tb=s.tipo==='fuerza'?'🏋️ Fuerza':s.tipo==='cardio'?'🥊 Cardio':s.tipo?.includes('fuerza')?'🏋️🥊 Fuerza + HIIT':'🤸 Calistenia';
+    h+=`<div class="card${opt?' pink':''}">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:5px">
+        <div><div class="card-label">${DIASF[s.dia]}</div><div class="card-title">${s.nombre}</div>
+          <div style="font-size:11px;color:var(--text-3);margin-top:2px">${tb} · ${s.duracion}min · ${nEj} ejercicios</div>
         </div>
-        <div style="display:flex;flex-direction:column;gap:4px;align-items:flex-end">${faseTags}</div>
+        <div style="display:flex;flex-direction:column;gap:3px;align-items:flex-end">${fTags}</div>
       </div>
-      ${esOpt?`<div style="font-size:11px;color:var(--accent);margin-top:8px;font-family:'DM Mono',monospace">↑ Fase óptima</div>`:''}
+      ${opt?`<div style="font-size:12px;font-weight:700;color:var(--pink);margin-top:4px">✨ Fase óptima para esta sesión</div>`:''}
     </div>`;
   }
-  return html;
+  return h;
 }
 
-// ── PROGRESIÓN ─────────────────────────────────────────────
-function getUltimoPeso(nombre){
-  const fechas=Object.keys(state.logs).sort().reverse();
-  for(const f of fechas){
-    const log=state.logs[f];
-    const ej=log.ejercicios?.find(e=>e.nombre===nombre||e.n===nombre);
-    if(ej?.series?.length){const mp=Math.max(...ej.series.map(s=>s.peso||0));if(mp>0)return mp;}
+// ── PROGRESIÓN ────────────────────────────────────────────
+function rProg(){
+  const plan=ST.plan||PLAN_DEFAULT;
+  const dw=new Date().getDay();
+  const sesH=plan.sesiones?.find(s=>s.dia===dw);
+  const ejsH=sesH?ejsFlat(sesH).map(e=>e.n):[];
+  // Nombres exactos del historial Hevy con datos de peso
+  const ejConDatos=['Peso Muerto Rumano (Barra)','Sentadilla Búlgara','Remo Inclinado (Barra)','Dominada (Asistida)','Jalón al Pecho (Máquina)','Press de Piernas','Extensión de Pierna','Curl de Piernas Acostado (Máquina)','Aducción de Caderas','Abducción de Caderas','Hip Thrust (Smith Machine)','Patada de Glúteo con Cable','Curl de Bíceps (Cable)','Straight Arm Lat Pulldown (Cable)','Jalón al Pecho a Un Brazo','Elevación de cadera (Máquina Smith)','Hip thrust (barra o mancuerna)','Remo con Mancuerna','Press de Hombros  (Mancuerna)','Extensión de tríceps en polea','Curl Martillo (Mancuerna)'];
+  const ejOrd=[...new Set([...ejsH,...ejConDatos])];
+  // Seleccionar por defecto el primer ejercicio que tenga datos en el historial
+  function primerEjConDatos(){
+    for(const n of ejOrd){const d=calcP(n);if(d.length>=1)return n;}
+    return ejOrd[0];
   }
-  return null;
-}
-function calcProg(nombre){
-  return Object.entries(state.logs).sort(([a],[b])=>a.localeCompare(b))
-    .map(([fecha,log])=>{
-      const ej=log.ejercicios?.find(e=>e.nombre===nombre||e.n===nombre);
-      if(!ej?.series?.length)return null;
-      const maxPeso=Math.max(...ej.series.map(s=>s.peso||0));
-      if(!maxPeso)return null;
-      const reps=ej.series.find(s=>s.peso===maxPeso)?.reps||1;
-      return{fecha:fecha.slice(5),peso:maxPeso,rm:+(maxPeso*(1+reps/30)).toFixed(1)};
-    }).filter(Boolean);
-}
+  const ejSel=ST.ejSel||primerEjConDatos();
 
-function renderProgresion(){
-  const plan=state.plan||PLAN_DEFAULT;
-  const diaHoy=new Date().getDay();
-  const sesionHoy=plan.sesiones?.find(s=>s.dia===diaHoy);
-  const ejsHoy=sesionHoy?.ejercicios?.map(e=>e.n)||[];
-  const todosEjs=['Elevación de cadera (Máquina Smith)','Peso Muerto Rumano (Barra)','Sentadilla Búlgara','Press de Piernas','Jalón al Pecho (Máquina)','Remo Inclinado (Barra)','Remo con Mancuerna','Press de Hombros  (Mancuerna)','Extensión de tríceps en polea','Curl Martillo (Mancuerna)','Abducción de Caderas','Extensión de Pierna','Curl de Pierna Sentado','Dominada (Asistida)','Curl de Bíceps (Cable)','Straight Arm Lat Pulldown (Cable)'];
-  const ejOrd=[...new Set([...ejsHoy,...todosEjs])];
-  const ejSel=state.ejSel||(ejsHoy[0]||ejOrd[0]);
-  const datos=calcProg(ejSel);
-  const ultimo=datos[datos.length-1];
-  const penult=datos[datos.length-2];
-  const tend=penult?(ultimo?.peso>penult.peso?'↑':ultimo?.peso<penult.peso?'↓':'→'):null;
-  const tendC=tend==='↑'?'var(--green)':tend==='↓'?'var(--red)':'var(--amber)';
-  const ultP=getUltimoPeso(ejSel);
-  const hoy=new Date().toISOString().split('T')[0];
-  const seriesHoy=state.logs[hoy]?.ejercicios?.find(e=>e.nombre===ejSel||e.n===ejSel)?.series||[];
-  let html='';
+  function calcP(n){return Object.entries(ST.logs).sort(([a],[b])=>a.localeCompare(b)).map(([f,l])=>{const ej=l.ejercicios?.find(e=>e.nombre===n||e.n===n);if(!ej?.series?.length)return null;const mx=Math.max(...ej.series.map(s=>s.peso||0));if(!mx)return null;const rp=ej.series.find(s=>s.peso===mx)?.reps||1;return{f:f.slice(5),p:mx,rm:+(mx*(1+rp/30)).toFixed(1)};}).filter(Boolean)}
 
-  if(sesionHoy&&ejsHoy.length){
-    html+=`<div class="card" style="border-color:rgba(232,255,107,0.25);background:rgba(232,255,107,0.03)">
-      <div class="card-label" style="color:var(--accent);margin-bottom:8px">🏋️ ${sesionHoy.nombre}</div>
-      <div style="display:flex;flex-direction:column;gap:5px">`;
-    ejsHoy.forEach((e,i)=>{
-      const sEj=state.logs[hoy]?.ejercicios?.find(x=>x.nombre===e||x.n===e)?.series||[];
-      const pl=sesionHoy.ejercicios[i]; const uP=getUltimoPeso(e); const activo=ejSel===e;
-      const esc=e.replace(/'/g,"\'");
-      html+=`<div onclick="selectEj('${esc}')" style="padding:10px 12px;border-radius:12px;border:1px solid ${activo?'rgba(232,255,107,0.35)':'var(--border)'};background:${activo?'rgba(232,255,107,0.07)':'rgba(255,255,255,0.02)'};cursor:pointer">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div style="font-size:13px;font-weight:700;color:${activo?'var(--accent)':'var(--text)'}">${e}</div>
-          <div style="display:flex;gap:6px;align-items:center">
-            ${sEj.length?`<span style="font-size:11px;color:var(--green);font-family:'DM Mono',monospace">${sEj.length}s ✓</span>`:''}
-            ${uP?`<span style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">${uP}kg</span>`:''}
-          </div>
-        </div>
-        ${activo&&pl?`<div style="font-size:11px;color:var(--muted);margin-top:2px">${pl.s}×${pl.r} · ${pl.d}s${pl.nota?' · '+pl.nota:''}</div>`:''}
-      </div>`;
-    });
-    html+=`</div></div>`;
+  const datos=calcP(ejSel);const ult=datos[datos.length-1];const pen=datos[datos.length-2];
+  const tend=pen?(ult?.p>pen.p?'↑':ult?.p<pen.p?'↓':'→'):null;
+  const tC=tend==='↑'?'var(--mint)':tend==='↓'?'var(--pink)':'var(--peach)';
+  const ultP=ultPeso(ejSel)||'';
+  const serH=ST.logs[hoy()]?.ejercicios?.find(e=>e.nombre===ejSel||e.n===ejSel)?.series||[];
+  const e2=esc(ejSel);const cid2=cssid(ejSel);
+
+  let h='';
+  if(sesH&&ejsH.length){
+    h+=`<div class="card pink"><div class="card-label">sesión de hoy</div>
+      <div style="display:flex;flex-wrap:wrap;gap:5px;margin-top:5px">
+        ${ejsH.map(e=>`<button onclick="ST.ejSel='${esc(e)}';render()" style="padding:6px 12px;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid;cursor:pointer;font-family:'Nunito Sans',sans-serif;transition:all .15s;background:${ejSel===e?'var(--pink)':'var(--white)'};border-color:${ejSel===e?'var(--pink)':'var(--pink-mid)'};color:${ejSel===e?'#fff':'var(--pink-deep)'}">${e.split(' ').slice(0,3).join(' ')}</button>`).join('')}
+      </div></div>`;
   }
 
-  const sugerido=ultP||'';
-  const ejEsc=ejSel.replace(/'/g,"\'");
-  html+=`<div class="card">
-    <div class="row-between" style="margin-bottom:10px">
-      <div><div class="card-label" style="margin-bottom:1px">Registrar serie</div>
-        <div style="font-size:14px;font-weight:700">${ejSel}</div></div>
-      ${ultimo?`<div style="text-align:right"><div style="font-size:10px;color:var(--muted)">1RM est.</div><div style="font-size:18px;font-weight:800;color:var(--accent)">${ultimo.rm}kg</div></div>`:''}
+  h+=`<div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+      <div><div class="card-label">registrar serie</div><div class="card-title" style="font-size:15px">${ejSel}</div></div>
+      ${ult?`<div style="text-align:right"><div style="font-size:10px;color:var(--text-3)">1RM est.</div><div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--pink)">${ult.rm}kg</div></div>`:''}
     </div>
-    ${seriesHoy.length?`<div style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px">
-      ${seriesHoy.map((s,i)=>`<div style="padding:5px 10px;border-radius:8px;background:rgba(107,255,184,0.08);border:1px solid rgba(107,255,184,0.2);font-size:12px;font-family:'DM Mono',monospace;color:var(--green)">${s.peso||'BW'}${s.peso?'kg':''}×${s.reps} <span onclick="eliminarSerie('${ejEsc}',${i})" style="color:rgba(255,255,255,0.25);cursor:pointer">×</span></div>`).join('')}
-    </div>`:''}
-    <div style="display:flex;gap:8px;margin-bottom:10px">
-      <div style="flex:2"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Peso (kg)</div>
-        <input class="inp" type="number" id="log-peso" value="${sugerido}" placeholder="kg" step="1.25" style="font-size:20px;font-weight:800;text-align:center;padding:13px 8px"></div>
-      <div style="flex:1"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">Reps</div>
-        <input class="inp" type="number" id="log-reps" placeholder="8" style="font-size:20px;font-weight:800;text-align:center;padding:13px 8px"></div>
-      <div style="flex:1"><div style="font-size:11px;color:var(--muted);margin-bottom:4px">RPE</div>
-        <input class="inp" type="number" id="log-rpe" placeholder="8" min="6" max="10" style="font-size:20px;font-weight:800;text-align:center;padding:13px 8px"></div>
+    ${serH.length?`<div class="series-chips">${serH.map((s,i)=>`<span class="s-chip">${s.peso||'P/C'}${s.peso?'kg':''}×${s.reps}${s.rpe?' @'+s.rpe:''}<span class="x" onclick="delS2('${e2}',${i})">×</span></span>`).join('')}</div>`:''}
+    <div class="log-inputs">
+      <div class="log-field"><div class="log-lbl">Peso kg</div><input class="log-inp" type="number" id="lp2" value="${ultP}" placeholder="kg" step="1.25"></div>
+      <div class="log-field"><div class="log-lbl">Reps</div><input class="log-inp" type="number" id="lr2" placeholder="8"></div>
+      <div class="log-field"><div class="log-lbl">RPE</div><input class="log-inp" type="number" id="lrpe2" placeholder="8" min="6" max="10"></div>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:10px">
-      ${[-2.5,-1.25,1.25,2.5].map(d=>`<button onclick="ajustarPeso(${d})" class="btn-sm" style="font-size:13px;font-weight:700;padding:10px 0">${d>0?'+':''}${d}</button>`).join('')}
-    </div>
-    <button class="hc-btn primary" onclick="guardarSerieRapido('${ejEsc}')">+ Agregar serie</button>
-    <div id="log-msg" style="font-size:12px;color:var(--green);margin-top:8px;text-align:center;display:none">✓ Serie guardada</div>
+    <div class="adj-row">${[-2.5,-1.25,1.25,2.5].map(d=>`<button class="adj" onclick="const i=document.getElementById('lp2');if(i){const v=parseFloat(i.value)||0;i.value=Math.max(0,v+(${d})).toFixed(2).replace(/\.?0+$/,'')}">${d>0?'+':''}${d}</button>`).join('')}</div>
+    <button class="btn-p" onclick="addS2('${e2}')">+ Agregar serie</button>
+    <div id="lmsg2" class="log-saved">✨ Serie guardada</div>
   </div>`;
 
-  if(datos.length>=2){
-    html+=`<div class="card">
-      <div class="row-between" style="margin-bottom:8px">
-        <div><div class="card-label">Progresión</div><div style="font-size:20px;font-weight:800">${ultimo?.peso}kg</div></div>
-        ${tend?`<div style="font-size:26px;font-weight:800;color:${tendC}">${tend}</div>`:''}
+  if(datos.length>=1){
+    h+=`<div class="card">
+      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px">
+        <div><div class="card-label">progresión histórica</div><div style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:800;color:var(--text)">${ult?.p}kg</div></div>
+        ${tend?`<div style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:800;color:${tC}">${tend}</div>`:''}
       </div>
-      <canvas id="prog-chart" height="100" style="width:100%"></canvas>
-      <div style="font-size:11px;color:var(--muted);margin-top:6px;text-align:center;font-family:'DM Mono',monospace">${datos.length} sesiones</div>
+      <canvas id="chart2" height="90" style="width:100%;display:block;min-height:90px"></canvas>
+      <div style="font-size:10px;color:var(--text-3);text-align:center;margin-top:5px">${datos.length} sesiones registradas</div>
     </div>`;
-  } else if(datos.length===1){
-    html+=`<div class="banner amber">Primera sesión. Vuelve después de la próxima para ver la curva.</div>`;
-  } else {
-    html+=`<div class="empty-state"><div class="e-icon">📊</div><p>Sin datos para este ejercicio</p></div>`;
   }
 
-  html+=`<div class="card"><div class="card-label" style="margin-bottom:8px">Todos los ejercicios</div>
-    <div style="overflow-x:auto;scrollbar-width:none"><div style="display:flex;gap:5px;min-width:max-content;padding-bottom:2px">
-      ${ejOrd.slice(0,16).map(e=>`<button class="tab ${e===ejSel?'active':''}" onclick="selectEj('${e.replace(/'/g,"\'")}')">${e.split(' ').slice(0,2).join(' ')}</button>`).join('')}
-    </div></div></div>`;
+  // Solo mostrar ejercicios que tengan al menos 1 dato
+  const ejConHistorial=ejOrd.filter(e=>calcP(e).length>=1);
+  const ejSinHistorial=ejOrd.filter(e=>calcP(e).length===0).slice(0,6);
+  h+=`<div class="card"><div class="card-label" style="margin-bottom:8px">ejercicios con historial (${ejConHistorial.length})</div>
+    <div style="overflow-x:auto;scrollbar-width:none"><div style="display:flex;gap:6px;min-width:max-content;padding-bottom:2px">
+      ${ejConHistorial.slice(0,16).map(e=>`<button class="pej ${e===ejSel?'on':'off'}" onclick="ST.ejSel='${esc(e)}';render()">${e.split(' ').slice(0,3).join(' ')}</button>`).join('')}
+    </div></div>
+    ${ejSinHistorial.length?`<div style="margin-top:8px;padding-top:8px;border-top:1px solid var(--border)"><div style="font-size:10px;color:var(--text-3);margin-bottom:5px;font-weight:700">SIN DATOS AÚN</div><div style="display:flex;flex-wrap:wrap;gap:4px">${ejSinHistorial.map(e=>`<button class="pej off" onclick="ST.ejSel='${esc(e)}';render()" style="opacity:.5">${e.split(' ').slice(0,2).join(' ')}</button>`).join('')}</div></div>`:''}
+  </div>`;
 
-  setTimeout(()=>drawProgChart(datos),50);
-  return html;
-}
-
-function drawProgChart(datos){
-  const canvas=document.getElementById('prog-chart');
-  if(!canvas||!datos.length)return;
-  const ctx=canvas.getContext('2d');
-  const dpr=window.devicePixelRatio||1;
-  const W=canvas.offsetWidth; const H=100;
-  canvas.width=W*dpr; canvas.height=H*dpr; ctx.scale(dpr,dpr);
-  const pesos=datos.map(d=>d.peso);
-  const minP=Math.min(...pesos)*0.97,maxP=Math.max(...pesos)*1.03;
-  const pad={l:32,r:8,t:8,b:22};
-  const w=W-pad.l-pad.r,h=H-pad.t-pad.b;
-  function px(i){return pad.l+(i/(datos.length-1||1))*w;}
-  function py(v){return pad.t+h-((v-minP)/(maxP-minP||1))*h;}
-  ctx.strokeStyle='rgba(255,255,255,0.05)'; ctx.lineWidth=1;
-  for(let i=0;i<3;i++){
-    const y=pad.t+h*(i/2);
-    ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();
-    ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='9px DM Mono';ctx.textAlign='right';
-    ctx.fillText((minP+(maxP-minP)*(1-i/2)).toFixed(0),pad.l-4,y+3);
+  window._chartDatos = datos;
+  // Intentar dibujar en múltiples momentos para asegurar que el canvas tenga ancho
+  function tryDraw(attempts){
+    const cv=document.getElementById('chart2');
+    if(!cv) return;
+    const w=cv.offsetWidth||cv.getBoundingClientRect().width||cv.parentElement?.getBoundingClientRect().width;
+    if(w>0){ drawChart(datos); return; }
+    if(attempts>0) setTimeout(()=>tryDraw(attempts-1),100);
   }
-  const grad=ctx.createLinearGradient(0,pad.t,0,pad.t+h);
-  grad.addColorStop(0,'rgba(232,255,107,0.2)');grad.addColorStop(1,'rgba(232,255,107,0)');
-  ctx.beginPath();ctx.moveTo(px(0),py(datos[0].peso));
-  datos.forEach((d,i)=>ctx.lineTo(px(i),py(d.peso)));
-  ctx.lineTo(px(datos.length-1),H-pad.b);ctx.lineTo(pad.l,H-pad.b);
-  ctx.closePath();ctx.fillStyle=grad;ctx.fill();
-  ctx.beginPath();ctx.strokeStyle='#e8ff6b';ctx.lineWidth=2;ctx.lineJoin='round';
-  datos.forEach((d,i)=>i===0?ctx.moveTo(px(i),py(d.peso)):ctx.lineTo(px(i),py(d.peso)));
-  ctx.stroke();
-  datos.forEach((d,i)=>{ctx.beginPath();ctx.arc(px(i),py(d.peso),3,0,Math.PI*2);ctx.fillStyle='#e8ff6b';ctx.fill();});
-  ctx.fillStyle='rgba(255,255,255,0.3)';ctx.font='9px DM Mono';ctx.textAlign='center';
-  if(datos[0])ctx.fillText(datos[0].fecha,px(0),H-pad.b+14);
-  if(datos.length>1)ctx.fillText(datos[datos.length-1].fecha,px(datos.length-1),H-pad.b+14);
+  setTimeout(()=>tryDraw(8),40);
+  return h;
 }
 
-function selectEj(ej){state.ejSel=ej;render();setTimeout(()=>document.getElementById('log-reps')?.focus(),100);}
-function ajustarPeso(d){const inp=document.getElementById('log-peso');if(!inp)return;const v=parseFloat(inp.value)||0;inp.value=Math.max(0,v+d).toFixed(2).replace(/\.?0+$/,'');}
-async function eliminarSerie(ejNombre,idx){
-  const hoy=new Date().toISOString().split('T')[0];
-  const log=await S.get('ef:log:'+hoy)||{fecha:hoy,ejercicios:[],completada:false};
-  const ejIdx=log.ejercicios.findIndex(e=>e.nombre===ejNombre||e.n===ejNombre);
-  if(ejIdx>=0)log.ejercicios[ejIdx].series.splice(idx,1);
-  await S.set('ef:log:'+hoy,log); state.logs[hoy]=log; render();
-}
-async function guardarSerieRapido(ejNombre){
-  const peso=parseFloat(document.getElementById('log-peso')?.value);
-  const reps=parseInt(document.getElementById('log-reps')?.value);
-  const rpe=parseInt(document.getElementById('log-rpe')?.value)||null;
-  if(!reps){document.getElementById('log-reps')?.focus();return;}
-  const hoy=new Date().toISOString().split('T')[0];
-  const log=await S.get('ef:log:'+hoy)||{fecha:hoy,ejercicios:[],completada:false};
-  const ejIdx=log.ejercicios.findIndex(e=>e.nombre===ejNombre||e.n===ejNombre);
+async function addS2(n){
+  const peso=parseFloat(document.getElementById('lp2')?.value);
+  const reps=parseInt(document.getElementById('lr2')?.value);
+  const rpe=parseInt(document.getElementById('lrpe2')?.value)||null;
+  if(!reps){document.getElementById('lr2')?.focus();return;}
+  const f=hoy();const log=await S.get('ef:log:'+f)||{fecha:f,ejercicios:[],completada:false};
+  const ei=log.ejercicios.findIndex(e=>e.nombre===n||e.n===n);
   const serie={...(peso?{peso}:{}),reps,...(rpe?{rpe}:{})};
-  if(ejIdx>=0)log.ejercicios[ejIdx].series=[...(log.ejercicios[ejIdx].series||[]),serie];
-  else log.ejercicios.push({nombre:ejNombre,series:[serie]});
-  await S.set('ef:log:'+hoy,log); state.logs[hoy]=log;
-  document.getElementById('log-reps').value='';
-  if(document.getElementById('log-rpe'))document.getElementById('log-rpe').value='';
-  const msg=document.getElementById('log-msg');
-  if(msg){msg.style.display='block';setTimeout(()=>{if(msg)msg.style.display='none';},1500);}
-  const seriesHoy=log.ejercicios.find(e=>e.nombre===ejNombre||e.n===ejNombre)?.series||[];
-  const seriesDiv=document.querySelector('#logger-card div[style*="flex-wrap"]');
-  if(seriesDiv){
-    seriesDiv.innerHTML=seriesHoy.map((s,i)=>`<div style="padding:5px 10px;border-radius:8px;background:rgba(107,255,184,0.08);border:1px solid rgba(107,255,184,0.2);font-size:12px;font-family:'DM Mono',monospace;color:var(--green)">${s.peso||'BW'}${s.peso?'kg':''}×${s.reps} <span onclick="eliminarSerie('${ejNombre.replace(/'/g,"\'")}',${i})" style="color:rgba(255,255,255,0.25);cursor:pointer">×</span></div>`).join('');
-  }
-  setTimeout(()=>document.getElementById('log-reps')?.focus(),50);
+  if(ei>=0)log.ejercicios[ei].series=[...(log.ejercicios[ei].series||[]),serie];
+  else log.ejercicios.push({nombre:n,series:[serie]});
+  await S.set('ef:log:'+f,log);ST.logs[f]=log;
+  document.getElementById('lr2').value='';
+  if(document.getElementById('lrpe2'))document.getElementById('lrpe2').value='';
+  const msg=document.getElementById('lmsg2');
+  if(msg){msg.style.display='block';setTimeout(()=>{if(msg)msg.style.display='none'},1500)}
+  render();
+}
+async function delS2(n,idx){
+  const f=hoy();const log=await S.get('ef:log:'+f)||{fecha:f,ejercicios:[],completada:false};
+  const ei=log.ejercicios.findIndex(e=>e.nombre===n||e.n===n);
+  if(ei>=0)log.ejercicios[ei].series.splice(idx,1);
+  await S.set('ef:log:'+f,log);ST.logs[f]=log;render();
 }
 
-// ── CUERPO ─────────────────────────────────────────────────
-function renderCuerpo(){
-  const comp=state.composicion; const ultima=comp[comp.length-1]; const primera=comp[0];
-  const seg=ultima?.segmentario; const faseActual=state.fase;
-  const metaGrasa=24.5,grasaActual=ultima?.porcGrasa||0,pesoActual=ultima?.peso||0;
-  const kgGrasa=((grasaActual/100)*pesoActual).toFixed(1);
-  const kgPerder=Math.max(0,(kgGrasa-((metaGrasa/100)*pesoActual))).toFixed(1);
-  const pct=Math.min(100,Math.max(0,((grasaActual-metaGrasa)/(grasaActual-18))*100));
-  let html='';
-  if(ultima){
-    html+=`<div class="card">
-      <div class="row-between" style="margin-bottom:12px">
-        <div class="card-label" style="margin-bottom:0">Medición actual</div>
-        <div style="font-size:11px;color:var(--muted);font-family:'DM Mono',monospace">${ultima.fecha}</div>
+function drawChart(datos){
+  const c=document.getElementById('chart2');if(!c||!datos.length)return;
+  const ctx=c.getContext('2d');const dpr=window.devicePixelRatio||1;
+  const W=c.offsetWidth||c.getBoundingClientRect().width||c.parentElement?.offsetWidth||300;const H=90;
+  c.width=W*dpr;c.height=H*dpr;ctx.scale(dpr,dpr);
+  const ps=datos.map(d=>d.p);const mn=Math.min(...ps)*.97,mx=Math.max(...ps)*1.03;
+  const pad={l:28,r:6,t:6,b:18};const w=W-pad.l-pad.r,h=H-pad.t-pad.b;
+  function px(i){return pad.l+(i/(datos.length-1||1))*w}function py(v){return pad.t+h-((v-mn)/(mx-mn||1))*h}
+  ctx.strokeStyle='rgba(232,117,138,.1)';ctx.lineWidth=1;
+  for(let i=0;i<3;i++){const y=pad.t+h*(i/2);ctx.beginPath();ctx.moveTo(pad.l,y);ctx.lineTo(pad.l+w,y);ctx.stroke();ctx.fillStyle='rgba(160,112,128,.55)';ctx.font='9px Nunito Sans,sans-serif';ctx.textAlign='right';ctx.fillText((mn+(mx-mn)*(1-i/2)).toFixed(0),pad.l-3,y+3);}
+  const gr=ctx.createLinearGradient(0,pad.t,0,pad.t+h);gr.addColorStop(0,'rgba(232,117,138,.18)');gr.addColorStop(1,'rgba(232,117,138,0)');
+  ctx.beginPath();ctx.moveTo(px(0),py(datos[0].p));datos.forEach((d,i)=>ctx.lineTo(px(i),py(d.p)));
+  ctx.lineTo(px(datos.length-1),H-pad.b);ctx.lineTo(pad.l,H-pad.b);ctx.closePath();ctx.fillStyle=gr;ctx.fill();
+  ctx.beginPath();ctx.strokeStyle='#e8758a';ctx.lineWidth=2;ctx.lineJoin='round';
+  datos.forEach((d,i)=>i===0?ctx.moveTo(px(i),py(d.p)):ctx.lineTo(px(i),py(d.p)));ctx.stroke();
+  datos.forEach((d,i)=>{ctx.beginPath();ctx.arc(px(i),py(d.p),3,0,Math.PI*2);ctx.fillStyle='#e8758a';ctx.fill()});
+  ctx.fillStyle='rgba(160,112,128,.55)';ctx.font='9px Nunito Sans,sans-serif';ctx.textAlign='center';
+  if(datos[0])ctx.fillText(datos[0].f,px(0),H-pad.b+12);
+  if(datos.length>1)ctx.fillText(datos[datos.length-1].f,px(datos.length-1),H-pad.b+12);
+}
+
+// ── CUERPO ────────────────────────────────────────────────
+function rCuerpo(){
+  const comp=ST.comp;const ult=comp[comp.length-1];const prim=comp[0];const seg=ult?.segmentario;const fa=ST.fase;
+  const meta=24.5,ga=ult?.porcGrasa||0,pa=ult?.peso||0;
+  const kgG=((ga/100)*pa).toFixed(1);const kgP=Math.max(0,(kgG-((meta/100)*pa))).toFixed(1);
+  const pct=Math.min(100,Math.max(0,((ga-meta)/(ga-18))*100));
+  let h='';
+  if(ult){
+    h+=`<div class="card">
+      <div class="card-label">medición más reciente · ${ult.fecha}</div>
+      <div style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:800;color:var(--text);margin:6px 0 2px">${ult.peso} <span style="font-size:16px;font-weight:600;color:var(--text-3)">kg</span></div>
+      <div style="font-size:11px;color:var(--text-3);margin-bottom:12px">${ult.fuente||'manual'}</div>
+      <div class="m-grid c3" style="margin-bottom:8px">
+        <div class="m-box p"><div class="m-lbl">Grasa</div><div class="m-val">${ult.porcGrasa}%</div><div class="m-sub">${kgG}kg</div></div>
+        <div class="m-box g"><div class="m-lbl">Músculo</div><div class="m-val">${ult.masaMuscular}kg</div></div>
+        <div class="m-box l"><div class="m-lbl">Masa libre</div><div class="m-val">${ult.masaLibreGrasa}kg</div></div>
       </div>
-      <div class="metrics-grid cols-3" style="margin-bottom:8px">
-        <div class="metric-box"><div class="metric-label">Peso</div><div class="metric-value">${ultima.peso}kg</div></div>
-        <div class="metric-box alert"><div class="metric-label">Grasa</div><div class="metric-value">${ultima.porcGrasa}%</div><div class="metric-sub">${kgGrasa}kg</div></div>
-        <div class="metric-box good"><div class="metric-label">Músculo</div><div class="metric-value">${ultima.masaMuscular}kg</div></div>
-      </div>
-      <div class="metrics-grid cols-3">
-        <div class="metric-box"><div class="metric-label">Masa libre grasa</div><div class="metric-value">${ultima.masaLibreGrasa}kg</div></div>
-        <div class="metric-box"><div class="metric-label">G. visceral</div><div class="metric-value">${ultima.grasaVisceral}</div><div class="metric-sub">meta <9</div></div>
-        <div class="metric-box"><div class="metric-label">Metab. basal</div><div class="metric-value">${ultima.metabolismoBasal}</div><div class="metric-sub">kcal</div></div>
+      <div class="m-grid c2">
+        <div class="m-box"><div class="m-lbl">Grasa visceral</div><div class="m-val">${ult.grasaVisceral}</div><div class="m-sub">meta &lt;9</div></div>
+        <div class="m-box"><div class="m-lbl">Metab. basal</div><div class="m-val">${ult.metabolismoBasal}</div><div class="m-sub">kcal</div></div>
       </div>
     </div>
-    <div class="card">
-      <div class="row-between" style="margin-bottom:8px">
-        <div class="card-label" style="margin-bottom:0">Objetivo</div>
-        <div style="font-size:12px;font-family:'DM Mono',monospace;color:var(--muted)">${grasaActual}% → ${metaGrasa}%</div>
+    <div class="card pink">
+      <div class="card-label">objetivo de recomposición</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px">
+        <div style="font-size:13px;color:var(--text-2)">Reducir <strong>${kgP}kg</strong> de grasa</div>
+        <div style="font-size:11px;font-weight:700;color:var(--text-3)">${ga}% → ${meta}%</div>
       </div>
-      <div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:${pct}%;background:linear-gradient(90deg,var(--red),var(--accent))"></div></div></div>
-      <div style="font-size:12px;color:var(--muted);margin-top:6px">Reducir ~<b style="color:var(--text)">${kgPerder}kg</b> de grasa · Déficit 200-300kcal · Proteína 98-110g/día</div>
+      <div class="prog-track"><div class="prog-fill" style="width:${pct}%"></div></div>
+      <div style="font-size:11px;color:var(--text-2);margin-top:8px;line-height:1.5">Déficit 200-300 kcal · Proteína 98-110g/día · Sin sacrificar músculo ni ciclo</div>
     </div>`;
   }
   if(seg){
-    const mlgD=[{z:'Tronco',v:seg.mlg.tronco,d:ultima.deltasMlg?.tronco??-1.73,a:true},{z:'Brazo D',v:seg.mlg.brazoDer,d:ultima.deltasMlg?.brazoDer??-0.12},{z:'Brazo I',v:seg.mlg.brazoIzq,d:ultima.deltasMlg?.brazoIzq??-0.14},{z:'Pierna D',v:seg.mlg.piernaDer,d:ultima.deltasMlg?.piernaDer??+0.26,g:true},{z:'Pierna I',v:seg.mlg.piernaIzq,d:ultima.deltasMlg?.piernaIzq??+0.20,g:true}];
-    const gD=[{z:'Tronco',v:seg.grasa.tronco,d:ultima.deltasGrasa?.tronco??+1.14,a:true},{z:'Brazo D',v:seg.grasa.brazoDer,d:ultima.deltasGrasa?.brazoDer??+0.06},{z:'Brazo I',v:seg.grasa.brazoIzq,d:ultima.deltasGrasa?.brazoIzq??+0.08},{z:'Pierna D',v:seg.grasa.piernaDer,d:ultima.deltasGrasa?.piernaDer??-0.43,g:true},{z:'Pierna I',v:seg.grasa.piernaIzq,d:ultima.deltasGrasa?.piernaIzq??-0.37,g:true}];
-    function segR(data,inv){return data.map(({z,v,d,a,g})=>{const cls=a?'alert':g?'good':'neutral';const dc=inv?(d<0?'delta-pos':'delta-neg'):(d>0?'delta-neg':'delta-pos');return`<div class="seg-row ${cls}"><span class="seg-zona">${z}</span><div class="seg-right"><span class="seg-val">${v}kg</span><span class="seg-delta ${dc}">${d>0?'+':''}${d}</span></div></div>`;}).join('');}
-    html+=`<div class="card"><div class="card-label">Mapa segmentario</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-        <div><div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px">Masa libre de grasa</div>${segR(mlgD,false)}</div>
-        <div><div style="font-size:11px;color:var(--muted);text-align:center;margin-bottom:8px">Grasa segmentaria</div>${segR(gD,true)}</div>
+    const mlgD=[{z:'Tronco',v:seg.mlg.tronco,d:ult.deltasMlg?.tronco??-1.73,a:true},{z:'Brazo D',v:seg.mlg.brazoDer,d:ult.deltasMlg?.brazoDer??-.12},{z:'Brazo I',v:seg.mlg.brazoIzq,d:ult.deltasMlg?.brazoIzq??-.14},{z:'Pierna D',v:seg.mlg.piernaDer,d:ult.deltasMlg?.piernaDer??.26,g:true},{z:'Pierna I',v:seg.mlg.piernaIzq,d:ult.deltasMlg?.piernaIzq??.20,g:true}];
+    const gD=[{z:'Tronco',v:seg.grasa.tronco,d:ult.deltasGrasa?.tronco??1.14,a:true},{z:'Brazo D',v:seg.grasa.brazoDer,d:ult.deltasGrasa?.brazoDer??.06},{z:'Brazo I',v:seg.grasa.brazoIzq,d:ult.deltasGrasa?.brazoIzq??.08},{z:'Pierna D',v:seg.grasa.piernaDer,d:ult.deltasGrasa?.piernaDer??-.43,g:true},{z:'Pierna I',v:seg.grasa.piernaIzq,d:ult.deltasGrasa?.piernaIzq??-.37,g:true}];
+    function segR(data,inv){return data.map(({z,v,d,a,g})=>{const cls=a?'p':g?'m':'n';const dc=inv?(d<0?'dm':'dn'):(d>0?'dn':'dm');return`<div class="seg-r ${cls}"><span class="seg-z">${z}</span><div><span class="seg-v">${v}kg</span><span class="seg-d ${dc}">${d>0?'+':''}${d}</span></div></div>`;}).join('');}
+    h+=`<div class="card"><div class="card-label">mapa segmentario · Smart Fit Body 06/05/26</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px">
+        <div><div style="font-size:10px;font-weight:700;color:var(--text-3);text-align:center;margin-bottom:6px">MASA LIBRE</div>${segR(mlgD,false)}</div>
+        <div><div style="font-size:10px;font-weight:700;color:var(--text-3);text-align:center;margin-bottom:6px">GRASA</div>${segR(gD,true)}</div>
       </div>
-      <div class="banner amber" style="margin-top:12px;margin-bottom:0">⚡ Prioridad: tronco (+1.14kg grasa vs ref.). Piernas bien — mantener.</div>
+      <div class="ban o" style="margin-top:10px;margin-bottom:0">⚡ Prioridad: reducir grasa de tronco (+1.14kg vs ref.). Piernas ya van bien — mantener.</div>
     </div>`;
   }
-  if(faseActual==='lutea') html+=`<div class="banner violet">🍃 Fase lútea — posible retención 0.5-2kg. Evalúa tendencia mensual.</div>`;
+  if(fa==='lutea')h+=`<div class="ban l">🍃 Fase lútea activa — posible retención 0.5-2kg en báscula. Evalúa la tendencia mensual, no el número de hoy.</div>`;
   if(comp.length>1){
-    html+=`<div class="card"><div class="card-label">Progreso total</div>
-      <div class="metrics-grid cols-3">
-        <div class="metric-box ${primera.peso>ultima.peso?'good':''}"><div class="metric-label">Peso</div><div class="metric-value">${ultima.peso}kg</div><div class="metric-sub">Δ ${(+(ultima.peso-primera.peso)).toFixed(1)}kg</div></div>
-        ${primera.porcGrasa&&ultima.porcGrasa?`<div class="metric-box ${ultima.porcGrasa<primera.porcGrasa?'good':'alert'}"><div class="metric-label">Grasa</div><div class="metric-value">${ultima.porcGrasa}%</div><div class="metric-sub">Δ ${(+(ultima.porcGrasa-primera.porcGrasa)).toFixed(1)}%</div></div>`:''}
-        ${primera.masaMuscular&&ultima.masaMuscular?`<div class="metric-box ${ultima.masaMuscular>primera.masaMuscular?'good':''}"><div class="metric-label">Músculo</div><div class="metric-value">${ultima.masaMuscular}kg</div><div class="metric-sub">Δ ${(+(ultima.masaMuscular-primera.masaMuscular)).toFixed(1)}kg</div></div>`:''}
+    h+=`<div class="card"><div class="card-label">progreso total</div>
+      <div class="m-grid c3" style="margin-top:8px">
+        <div class="m-box ${prim.peso>ult.peso?'g':''}"><div class="m-lbl">Peso</div><div class="m-val">${ult.peso}kg</div><div class="m-sub">Δ ${(+(ult.peso-prim.peso)).toFixed(1)}kg</div></div>
+        ${prim.porcGrasa&&ult.porcGrasa?`<div class="m-box ${ult.porcGrasa<prim.porcGrasa?'g':'p'}"><div class="m-lbl">Grasa</div><div class="m-val">${ult.porcGrasa}%</div><div class="m-sub">Δ ${(+(ult.porcGrasa-prim.porcGrasa)).toFixed(1)}%</div></div>`:''}
+        ${prim.masaMuscular&&ult.masaMuscular?`<div class="m-box ${ult.masaMuscular>prim.masaMuscular?'g':''}"><div class="m-lbl">Músculo</div><div class="m-val">${ult.masaMuscular}kg</div><div class="m-sub">Δ ${(+(ult.masaMuscular-prim.masaMuscular)).toFixed(1)}kg</div></div>`:''}
       </div></div>`;
   }
-  html+=`<div class="card"><div class="card-label">+ Nueva medición</div>
-    <div style="display:flex;flex-direction:column;gap:8px">
-      <input class="inp" type="number" id="n-peso" placeholder="Peso (kg) *" step="0.1">
-      <div class="inp-row">
-        <input class="inp" type="number" id="n-grasa" placeholder="% grasa" step="0.1">
-        <input class="inp" type="number" id="n-musculo" placeholder="Músculo kg" step="0.1">
-      </div>
-      <button class="hc-btn secondary" onclick="guardarMedicion()">Guardar medición</button>
+  h+=`<div class="card"><div class="card-label">+ nueva medición</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:8px">
+      <input class="inp" type="number" id="np" placeholder="Peso (kg) *" step="0.1">
+      <div style="display:flex;gap:8px"><input class="inp" type="number" id="ng" placeholder="% grasa" step="0.1"><input class="inp" type="number" id="nm" placeholder="Músculo kg" step="0.1"></div>
+      <button class="btn-p" onclick="saveMedicion()">Guardar medición 🌸</button>
     </div></div>`;
-  return html;
+  return h;
 }
-async function guardarMedicion(){
-  const peso=parseFloat(document.getElementById('n-peso').value);
-  if(!peso)return;
-  const grasa=parseFloat(document.getElementById('n-grasa').value)||null;
-  const musculo=parseFloat(document.getElementById('n-musculo').value)||null;
-  const nueva=[...state.composicion,{fecha:new Date().toISOString().split('T')[0],peso,porcGrasa:grasa,masaMuscular:musculo,fuente:'manual'}];
-  await S.set('ef:composicion',nueva); state.composicion=nueva; render();
+async function saveMedicion(){
+  const peso=parseFloat(document.getElementById('np').value);if(!peso)return;
+  const grasa=parseFloat(document.getElementById('ng').value)||null;
+  const mus=parseFloat(document.getElementById('nm').value)||null;
+  const nueva=[...ST.comp,{fecha:hoy(),peso,porcGrasa:grasa,masaMuscular:mus,fuente:'manual'}];
+  await S.set('ef:composicion',nueva);ST.comp=nueva;render();
 }
 
-// ── CICLO ──────────────────────────────────────────────────
-function renderCiclo(){
-  const c=state.ciclo; const f=state.fase?FASES[state.fase]:null;
-  let html='';
+// ── CICLO ─────────────────────────────────────────────────
+function rCiclo(){
+  const c=ST.ciclo;const f=ST.fase?FASES[ST.fase]:null;let h='';
   if(f){
-    html+=`<div class="card" style="border-color:${f.badgeBorder};background:${f.badgeBg}">
-      <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px">
-        <div style="font-size:32px">${f.emoji}</div>
-        <div><div style="font-size:18px;font-weight:800;color:${f.badgeColor}">${f.label}</div>
-          <div style="font-size:12px;color:rgba(255,255,255,0.5)">Día ${state.diaDelCiclo} del ciclo</div></div>
+    h+=`<div style="background:${f.bg};border:1.5px solid ${f.bd};border-radius:18px;padding:16px;margin-bottom:10px">
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+        <span style="font-size:34px">${f.e}</span>
+        <div><div style="font-family:'Nunito',sans-serif;font-size:19px;font-weight:800;color:${f.tx}">${f.l}</div>
+          <div style="font-size:12px;color:var(--text-3)">Día ${ST.diac} del ciclo</div></div>
       </div>
-      <div style="font-size:13px;font-weight:600;color:${f.badgeColor};margin-bottom:4px">${f.intensidad}</div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.6);line-height:1.55">${f.tip}</div>
+      <div style="font-size:13px;font-weight:700;color:${f.tx};margin-bottom:4px">${f.int}</div>
+      <div style="font-size:12px;color:var(--text-2);line-height:1.55">${f.tip}</div>
     </div>`;
   }
-  html+=`<div class="card"><div class="card-label">Datos del ciclo</div>
-    <div style="display:flex;flex-direction:column;gap:10px">
-      <div><div style="font-size:12px;color:var(--muted);margin-bottom:5px">Primer día del último período</div>
-        <input class="inp" type="date" id="c-periodo" value="${c?.ultimoPeriodo||''}"></div>
-      <div class="inp-row">
-        <div style="flex:1"><div style="font-size:12px;color:var(--muted);margin-bottom:5px">Duración del ciclo (días)</div>
-          <input class="inp" type="number" id="c-duracion" value="${c?.duracion||25}" min="21" max="35"></div>
-        <div style="flex:1"><div style="font-size:12px;color:var(--muted);margin-bottom:5px">Duración período (días)</div>
-          <input class="inp" type="number" id="c-periodo-dur" value="${c?.duracionPeriodo||4}" min="2" max="8"></div>
+  h+=`<div class="card">
+    <div class="card-label">datos del ciclo</div>
+    <div style="display:flex;flex-direction:column;gap:10px;margin-top:8px">
+      <div><div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px">Primer día del último período</div>
+        <input class="inp" type="date" id="cp" value="${c?.ultimoPeriodo||''}"></div>
+      <div style="display:flex;gap:8px">
+        <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px">Duración ciclo (días)</div>
+          <input class="inp" type="number" id="cd" value="${c?.duracion||25}" min="21" max="35"></div>
+        <div style="flex:1"><div style="font-size:12px;font-weight:600;color:var(--text-2);margin-bottom:5px">Duración período</div>
+          <input class="inp" type="number" id="cpd" value="${c?.duracionPeriodo||4}" min="2" max="8"></div>
       </div>
-      <button class="hc-btn primary" onclick="guardarCiclo()">Actualizar ciclo</button>
-    </div></div>`;
-  html+=`<div class="card"><div class="card-label">Guía por fase</div>`;
-  for(const [key,fase] of Object.entries(FASES)){
-    const actual=state.fase===key;
-    html+=`<div class="phase-row ${actual?'current':''}">
-      <div class="phase-emoji">${fase.emoji}</div>
-      <div class="phase-info"><div class="phase-name">${fase.label}</div><div class="phase-desc">${fase.intensidad}</div></div>
-      ${actual?`<div class="phase-now">← ahora</div>`:''}
+      <button class="btn-p" onclick="saveCiclo()">Actualizar ciclo ✨</button>
+    </div></div>
+  <div class="card"><div class="card-label">guía por fase</div><div style="margin-top:8px">`;
+  for(const[k,fs]of Object.entries(FASES)){
+    const now=ST.fase===k;
+    h+=`<div class="ph-item${now?' now':''}">
+      <div class="ph-em">${fs.e}</div>
+      <div><div class="ph-name">${fs.l}</div><div class="ph-desc">${fs.int}</div>${now?`<span class="ph-now">← ESTÁS AQUÍ</span>`:''}</div>
     </div>`;
   }
-  html+=`</div>`;
-  return html;
+  h+=`</div></div>`;
+  return h;
 }
-async function guardarCiclo(){
-  const ultimoPeriodo=document.getElementById('c-periodo').value;
-  const duracion=parseInt(document.getElementById('c-duracion').value)||25;
-  const duracionPeriodo=parseInt(document.getElementById('c-periodo-dur').value)||4;
-  const ciclo={ultimoPeriodo,duracion,duracionPeriodo};
-  await S.set('ef:ciclo',ciclo);
-  state.ciclo=ciclo; state.fase=calcFase(ciclo); state.diaDelCiclo=calcDiaCiclo(ciclo);
-  render();
+async function saveCiclo(){
+  const up=document.getElementById('cp').value;const dur=parseInt(document.getElementById('cd').value)||25;const dp=parseInt(document.getElementById('cpd').value)||4;
+  const ciclo={ultimoPeriodo:up,duracion:dur,duracionPeriodo:dp};
+  await S.set('ef:ciclo',ciclo);ST.ciclo=ciclo;ST.fase=calcFase(ciclo);ST.diac=calcDiac(ciclo);render();
 }
 
-// ── AJUSTES ────────────────────────────────────────────────
-function renderAjustes(){
-  const plan=state.plan||PLAN_DEFAULT;
-  let html=`<div class="card">
-    <div class="card-label">Distribución de sesiones</div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:14px;line-height:1.5">Asigna cada sesión al día que prefieras. Puedes cambiarlos cuando quieras.</div>
-    <div style="display:flex;flex-direction:column;gap:10px">`;
+// ── AJUSTES ───────────────────────────────────────────────
+function rAjustes(){
+  const plan=ST.plan||PLAN_DEFAULT;
+  let h=`<div class="card">
+    <div class="card-label">distribución de sesiones</div>
+    <div style="font-size:12px;color:var(--text-2);margin:6px 0 12px;line-height:1.5">Cambia el día de cada sesión. Se guarda automáticamente.</div>`;
   plan.sesiones?.forEach((s,i)=>{
-    html+=`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:12px;border:1px solid var(--border);background:rgba(255,255,255,0.02)">
-      <div style="flex:1">
-        <div style="font-size:13px;font-weight:700">${s.nombre}</div>
-        <div style="font-size:11px;color:var(--muted);margin-top:2px">${s.ejercicios.length} ejercicios · ${s.duracion}min</div>
-      </div>
-      <select class="dia-select" id="dia-sesion-${i}" onchange="actualizarDiaSesion(${i},this.value)">
-        ${[0,1,2,3,4,5,6].map(d=>`<option value="${d}" ${s.dia===d?'selected':''}>${DIAS_FULL[d]}</option>`).join('')}
-        <option value="-1" ${s.dia===-1?'selected':''}>— Sin asignar</option>
-      </select>
-    </div>`;
+    h+=`<div class="ses-row">
+      <div style="flex:1"><div style="font-size:13px;font-weight:700;color:var(--text)">${s.nombre}</div>
+        <div style="font-size:11px;color:var(--text-3);margin-top:1px">${s.tipo||'fuerza'} · ${s.duracion}min</div></div>
+      <select class="dia-sel" onchange="changeDia(${i},this.value)">
+        ${[0,1,2,3,4,5,6].map(d=>`<option value="${d}"${s.dia===d?' selected':''}>${DIASF[d]}</option>`).join('')}
+      </select></div>`;
   });
-  html+=`</div></div>`;
-
-  html+=`<div class="card">
-    <div class="card-label">Días de descanso actuales</div>
-    <div style="display:flex;flex-wrap:wrap;gap:6px">`;
-  const diasConSesion=new Set(plan.sesiones?.map(s=>s.dia)||[]);
-  for(let d=0;d<7;d++){
-    const tiene=diasConSesion.has(d);
-    html+=`<span style="padding:5px 12px;border-radius:100px;font-size:12px;font-weight:600;border:1px solid;background:${tiene?'rgba(232,255,107,0.1)':'rgba(255,255,255,0.03)'};border-color:${tiene?'rgba(232,255,107,0.3)':'var(--border)'};color:${tiene?'var(--accent)':'var(--muted)'}">${DIAS_FULL[d]} ${tiene?'💪':'🛋️'}</span>`;
-  }
-  html+=`</div></div>`;
-
-  html+=`<div class="card">
-    <div class="card-label" style="margin-bottom:4px">Historial Hevy</div>
-    <div style="font-size:13px;color:var(--muted);margin-bottom:12px">45 sesiones cargadas · oct 2025 → may 2026</div>
-    <div class="banner green" style="margin-bottom:0">✓ Historial cargado automáticamente</div>
+  h+=`</div>`;
+  const dCon=new Set(plan.sesiones?.map(s=>s.dia)||[]);
+  h+=`<div class="card"><div class="card-label">resumen de la semana</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      ${[0,1,2,3,4,5,6].map(d=>{const ses=plan.sesiones?.find(s=>s.dia===d);return`<div style="padding:7px 11px;border-radius:12px;border:1px solid;font-size:11px;font-weight:700;background:${ses?'var(--pink-soft)':'var(--cream)'};border-color:${ses?'var(--pink-mid)':'var(--border)'};color:${ses?'var(--pink-deep)':'var(--text-3)'}">
+        <div>${DIASF[d]}</div><div style="font-size:10px;font-weight:500;margin-top:1px;color:var(--text-3)">${ses?ses.tipo:'descanso'}</div>
+      </div>`;}).join('')}
+    </div></div>`;
+  h+=`<div class="card mint"><div class="card-label">historial hevy</div>
+    <div style="font-size:13px;color:var(--text-2);margin:5px 0 9px">45 sesiones · oct 2025 → may 2026</div>
+    <div class="ban m" style="margin-bottom:0">✓ Historial cargado automáticamente al abrir la app</div>
   </div>`;
-
-  html+=`<div class="card">
-    <div class="card-label">Reiniciar datos</div>
-    <div style="font-size:12px;color:var(--muted);margin-bottom:12px">Borra todo el progreso guardado. Útil si quieres empezar desde cero.</div>
-    <button class="hc-btn secondary" onclick="resetearTodo()" style="color:var(--red);border-color:rgba(255,107,107,0.3)">⚠️ Borrar todos los datos</button>
+  h+=`<div class="card"><div class="card-label">reiniciar datos</div>
+    <div style="font-size:12px;color:var(--text-3);margin:5px 0 10px">Borra todo el progreso. No se puede deshacer.</div>
+    <button class="btn-sec" style="color:var(--pink-deep);border-color:var(--pink-mid)" onclick="resetAll()">⚠️ Borrar todos los datos</button>
   </div>`;
-
-  return html;
+  return h;
+}
+async function changeDia(idx,val){
+  const plan=JSON.parse(JSON.stringify(ST.plan||PLAN_DEFAULT));plan.sesiones[idx].dia=parseInt(val);
+  await S.set('ef:plan',plan);ST.plan=plan;render();
+}
+async function resetAll(){
+  if(!confirm('¿Segura? Esto borra todo.'))return;
+  for(let i=0;i<90;i++){const d=new Date();d.setDate(d.getDate()-i);try{await window.storage.delete('ef:log:'+d.toISOString().split('T')[0])}catch{}}
+  for(const k of['ef:ciclo','ef:composicion','ef:plan','ef:hv']){try{await window.storage.delete(k)}catch{}}
+  ST={tab:'ajustes',ciclo:null,fase:null,diac:null,plan:null,logs:{},comp:[],rec:{},en:3,sue:7.5,ag:2,ejA:null,ejSel:null,sem:1};
+  await load();
 }
 
-async function actualizarDiaSesion(idx,diaStr){
-  const plan=JSON.parse(JSON.stringify(state.plan||PLAN_DEFAULT));
-  plan.sesiones[idx].dia=parseInt(diaStr);
-  await S.set('ef:plan',plan); state.plan=plan; render();
-}
-async function resetearTodo(){
-  if(!confirm('¿Segura? Esto borra todo el progreso guardado.'))return;
-  // Borrar logs
-  for(let i=0;i<90;i++){
-    const d=new Date(); d.setDate(d.getDate()-i);
-    try{await window.storage.delete('ef:log:'+d.toISOString().split('T')[0]);}catch{}
+function afterRender(){
+  if(window._chartDatos?.length){
+    function tryDraw2(n){
+      const cv=document.getElementById('chart2');
+      if(!cv)return;
+      const w=cv.offsetWidth||cv.getBoundingClientRect().width;
+      if(w>0){drawChart(window._chartDatos);return;}
+      if(n>0)setTimeout(()=>tryDraw2(n-1),120);
+    }
+    tryDraw2(5);
   }
-  try{await window.storage.delete('ef:ciclo');}catch{}
-  try{await window.storage.delete('ef:composicion');}catch{}
-  try{await window.storage.delete('ef:plan');}catch{}
-  try{await window.storage.delete('ef:hevy:cargado');}catch{}
-  state={tab:'ajustes',ciclo:null,fase:null,diaDelCiclo:null,plan:null,logs:{},composicion:[],rec:{},energia:3,sueno:7.5,agua:2,checked:{},logGuardado:false,semana:1,ejSel:null,hevyCargado:false};
-  await loadState();
 }
 
-// ── INIT ───────────────────────────────────────────────────
 document.addEventListener('DOMContentLoaded',async()=>{
   document.getElementById('tabs').addEventListener('click',e=>{
-    const btn=e.target.closest('.tab'); if(!btn)return;
-    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-    btn.classList.add('active'); state.tab=btn.dataset.tab; render();
+    const btn=e.target.closest('.tab');if(!btn)return;
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+    btn.classList.add('on');ST.tab=btn.dataset.t;ST.ejA=null;render();
   });
-  await loadState();
+  await load();
 });
 </script>
 </body>
